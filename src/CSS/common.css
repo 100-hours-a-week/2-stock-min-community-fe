@@ -1,0 +1,28 @@
+* {
+  list-style: none;
+}
+body {
+  margin: 0 auto;
+  height: 100vh;
+  background-color: rgb(235, 235, 235);
+}
+
+/* 로고 css */
+#logo_placeholder {
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  background-color: #f6fcfe;
+}
+.logo_img {
+  margin-right: 10px;
+  width: 4rem;
+  height: 4rem;
+  transform: scaleX(-1);
+}
+.logo_title {
+  height: 1rem;
+  display: flex;
+  padding-top: 1.5rem;
+  box-sizing: border-box;
+}

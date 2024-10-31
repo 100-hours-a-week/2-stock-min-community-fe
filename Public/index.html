@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="/2-stock-min-community-fe/src/CSS/common.css"
+    />
+    <link rel="stylesheet" href="/2-stock-min-community-fe/src/CSS/index.css" />
+    <title>Stock Community</title>
+  </head>
+  <body>
+    <header>
+      <div id="logo_placeholder">
+        <script>
+          fetch('./Fragment/logo.html')
+            .then((response) => response.text())
+            .then((data) => {
+              document.getElementById('logo_placeholder').innerHTML = data;
+            });
+        </script>
+      </div>
+    </header>
+
+    <section id="login">
+      <ul class="login_form">
+        <li class="login_ID">
+          <p>아이디</p>
+          <input type="text" />
+        </li>
+        <li class="login_password">
+          <p>비밀번호</p>
+          <input type="text" />
+        </li>
+        <li>
+          <button>로그인</button>
+          <button>회원가입</button>
+        </li>
+      </ul>
+    </section>
+  </body>
+</html>
