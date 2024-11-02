@@ -1,4 +1,16 @@
-#profile img {
-  width: 4rem;
-  height: 4rem;
+#post_header {
+  padding-top: 1rem;
+  height: 7rem;
+  display: flex;
+  justify-content: center;
+}
+.post_info p {
+  text-align: center;
+}
+
+.post_button {
+  display: flex;
+  justify-content: center;
+  padding-left: 20rem;
+  height: 2rem;
 }

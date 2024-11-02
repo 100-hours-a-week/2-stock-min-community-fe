@@ -1,0 +1,12 @@
+.postAddTitle {
+  text-align: center;
+}
+#postWrite {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+.submit_button {
+  width: 13rem;
+  margin-left: 45%;
+}

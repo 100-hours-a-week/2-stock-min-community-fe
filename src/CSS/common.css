@@ -9,7 +9,7 @@ body {
 
 /* 로고 css */
 #logo_placeholder {
-  height: 5vh;
+  height: 5rem;
   display: flex;
   justify-content: center;
   border-bottom: solid;

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="/2-stock-min-community-fe/src/CSS/common.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/2-stock-min-community-fe/src/CSS/postAdd.css"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <header id="logo">
+      <!-- 로고 -->
+      <script>
+        fetch('./Fragment/logo.html')
+          .then((response) => response.text())
+          .then((data) => {
+            document.getElementById('logo').innerHTML = data;
+          });
+      </script>
+    </header>
+    <h2 class="postAddTitle">게시글 작성</h2>
+    <section id="postWrite">
+      <div class="write_box">
+        <article class="write_title">
+          <h4>제목*</h4>
+          <input type="text" />
+        </article>
+        <article class="write_content">
+          <h4>내용*</h4>
+          <input type="text" />
+        </article>
+        <article class="upload_image">
+          <h4>이미지</h4>
+          <div class="upload_image_button">
+            <button>파일 선택</button>
+            <span>파일을 선택해주세요</span>
+          </div>
+        </article>
+      </div>
+    </section>
+    <button class="submit_button">완료</button>
+  </body>
+</html>
