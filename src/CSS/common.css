@@ -4,15 +4,15 @@
 body {
   margin: 0 auto;
   height: 100vh;
-  background-color: rgb(235, 235, 235);
+  background-color: #f4f5f7;
 }
 
 /* 로고 css */
 #logo_placeholder {
-  height: 10%;
+  height: 5vh;
   display: flex;
   justify-content: center;
-  background-color: #f6fcfe;
+  border-bottom: solid;
 }
 .logo_img {
   margin-right: 10px;
