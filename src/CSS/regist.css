@@ -1,0 +1,26 @@
+.add_profile_image {
+  width: 20rem;
+  height: 20rem;
+  border-radius: 50%;
+  background-color: #c4c4c4;
+}
+#regist {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60rem;
+}
+.personal_info {
+  width: 20rem;
+}
+.personal_info ul {
+  padding: 0;
+}
+.regist_button {
+  width: 100%;
+}
+.goto_login {
+  display: flex;
+  justify-content: center;
+}

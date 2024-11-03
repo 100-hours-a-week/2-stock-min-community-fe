@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="/2-stock-min-community-fe/src/CSS/common.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/2-stock-min-community-fe/src/CSS/regist.css"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <header id="logo">
+      <!-- 로고 -->
+      <script>
+        fetch('./Fragment/logo.html')
+          .then((response) => response.text())
+          .then((data) => {
+            console.log(data);
+            document.getElementById('logo').innerHTML = data;
+          });
+      </script>
+    </header>
+    <section id="regist">
+      <h2>회원가입</h2>
+      <article class="profile_image">
+        <h4>프로필 사진</h4>
+        <div class="add_profile_image"></div>
+      </article>
+      <article class="personal_info">
+        <ul>
+          <li>
+            <h4>이메일*</h4>
+            <input type="text" placeholder="이메일을 입력하세요" />
+          </li>
+          <li>
+            <h4>비밀번호*</h4>
+            <input type="text" placeholder="비밀번호를 입력하세요" />
+          </li>
+          <li>
+            <h4>비밀번호 확인*</h4>
+            <input type="text" placeholder="비밀번호를 한번 더 입력하세요" />
+          </li>
+          <li>
+            <h4>닉네임*</h4>
+            <input type="text" placeholder="닉네임을 입력하세요" />
+          </li>
+        </ul>
+        <button class="regist_button">회원가입</button>
+      </article>
+    </section>
+    <div class="goto_login">
+      <button>로그인 하러 가기</button>
+    </div>
+  </body>
+</html>
