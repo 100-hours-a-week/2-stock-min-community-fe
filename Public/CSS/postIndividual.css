@@ -64,12 +64,20 @@
 /* post_comment */
 #post_comment {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 .write_comment {
   width: 30rem;
   border-radius: 1rem;
   background-color: #ffffff;
+}
+.comment_box {
+  display: flex;
+
+  justify-content: space-between;
+  width: 30rem;
 }
 
 .comment_box textarea {
@@ -92,5 +100,26 @@
   justify-content: end;
   padding: 1rem;
 }
-.write_button_box button {
+
+.profile {
+  display: flex;
+  align-items: center;
+}
+.profile * {
+  margin: 1rem 0 0 0;
+}
+.profile h4 {
+  margin-left: 1rem;
+}
+.comment_user p {
+  margin-left: 3rem;
+}
+.comment_date {
+  display: flex;
+}
+.comment_date p {
+  margin: 1.3rem 3rem 0 0;
+}
+.modify_delete {
+  margin: 2.5rem 0.7rem 0 0;
 }

@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="CSS/common.css" />
-    <link rel="stylesheet" href="CSS/postIndividual.css" />
+    <link rel="stylesheet" href="../../CSS/common.css" />
+    <link rel="stylesheet" href="../../CSS/postIndividual.css" />
     <title>Document</title>
   </head>
   <body>
@@ -14,7 +14,11 @@
       <div id="logo_placeholder">
         <a href="postList.html" class="back_login"><</a>
         <span class="logo_title">아무말 대잔치</span>
-        <img src="images/icon/profile_img.webp" alt="" class="profile_image" />
+        <img
+          src="../../images/icon/profile_img.webp"
+          alt=""
+          class="profile_image"
+        />
       </div>
     </header>
 
@@ -26,7 +30,10 @@
         </div>
         <article class="post_info">
           <div class="date">
-            <img src="images/icon/profile_img.webp" class="profile_image" />
+            <img
+              src="../../images/icon/profile_img.webp"
+              class="profile_image"
+            />
             <h4>더미 작성자 1</h4>
             <p>2021-01-01 00:00:00</p>
           </div>
@@ -42,7 +49,7 @@
     <section id="post_content">
       <article class="post_content_box">
         <img
-          src="images/icon/Microsoft-Fluentui-Emoji-Mono-Ant.512.png"
+          src="../../images/icon/Microsoft-Fluentui-Emoji-Mono-Ant.512.png"
           alt=""
         />
         <p>
@@ -88,11 +95,23 @@
           <button>댓글 등록</button>
         </div>
       </article>
-      <article>
-        <div class="date">
-          <img src="images/icon/profile_img.webp" class="profile_image" />
-          <h4>더미 작성자 1</h4>
+      <article class="comment_box">
+        <div class="comment_user">
+          <div class="profile">
+            <img
+              src="../../images/icon/profile_img.webp"
+              class="profile_image"
+            />
+            <h4>더미 작성자 1</h4>
+          </div>
+          <p>댓글 내용</p>
+        </div>
+        <div class="comment_date">
           <p>2021-01-01 00:00:00</p>
+        </div>
+        <div class="modify_delete">
+          <button>수정</button>
+          <button>삭제</button>
         </div>
       </article>
     </section>
