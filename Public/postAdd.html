@@ -16,13 +16,9 @@
   <body>
     <header id="logo">
       <!-- 로고 -->
-      <script>
-        fetch('./Fragment/logo.html')
-          .then((response) => response.text())
-          .then((data) => {
-            document.getElementById('logo').innerHTML = data;
-          });
-      </script>
+      <div id="logo_placeholder">
+        <span class="logo_title">아무말 대잔치</span>
+      </div>
     </header>
     <h2 class="postAddTitle">게시글 작성</h2>
     <section id="postWrite">

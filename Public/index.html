@@ -13,14 +13,9 @@
   <body>
     <header id="logo">
       <!-- 로고 -->
-      <script>
-        fetch('./Fragment/logo.html')
-          .then((response) => response.text())
-          .then((data) => {
-            console.log(data);
-            document.getElementById('logo').innerHTML = data;
-          });
-      </script>
+      <div id="logo_placeholder">
+        <span class="logo_title">아무말 대잔치</span>
+      </div>
     </header>
 
     <section id="login">
@@ -35,8 +30,8 @@
         </li>
         <li>
           <button>로그인</button>
-          <button>회원가입</button>
         </li>
+        <li><a href="regist.html">회원가입</a></li>
       </ul>
     </section>
   </body>
