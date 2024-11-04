@@ -1,32 +1,30 @@
-.add_profile_image {
+.regist_box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+p {
+  margin: 0;
+}
+input {
+  width: 20rem;
+  margin: 0.5rem 0 0.25rem 0;
+}
+
+.circle {
+  display: flex;
   width: 20rem;
   height: 20rem;
   border-radius: 50%;
   background-color: #c4c4c4;
-}
-#regist {
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 60rem;
 }
-.personal_info {
-  width: 20rem;
-}
-.personal_info ul {
-  padding: 0;
+.helper_text {
+  color: red;
+  margin-bottom: 0.5rem;
 }
 .regist_button {
-  width: 100%;
-}
-.goto_login {
-  display: flex;
-  justify-content: center;
-}
-.plus_icon {
-  display: inline;
-  position: relative;
-  top: 45%;
-  left: 50%;
+  width: 20rem;
+  margin-bottom: 1rem;
 }
