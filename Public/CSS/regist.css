@@ -20,10 +20,7 @@ input {
   justify-content: center;
   align-items: center;
 }
-.helper_text {
-  color: red;
-  margin-bottom: 0.5rem;
-}
+
 .regist_button {
   width: 20rem;
   margin-bottom: 1rem;

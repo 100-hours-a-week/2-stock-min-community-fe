@@ -22,10 +22,22 @@ button {
   color: #ffffff;
   border-radius: 0.3rem;
 }
+textarea {
+  border: none;
+  outline: none;
+  background: none;
+  box-shadow: none;
+  resize: none;
+}
+
 .profile_image {
   width: 2rem;
   height: 2rem;
   border-radius: 1rem;
+}
+.helper_text {
+  color: red;
+  margin-bottom: 0.5rem;
 }
 
 /* 로고 css */
