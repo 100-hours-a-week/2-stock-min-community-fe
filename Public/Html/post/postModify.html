@@ -4,53 +4,41 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../../CSS/common.css" />
-    <link rel="stylesheet" href="../../CSS/postModify.css" />
+    <link rel="stylesheet" href="../../CSS/post.css" />
     <title>Document</title>
   </head>
   <body>
     <header id="logo">
       <!-- 로고 -->
+
       <div id="logo_placeholder">
-        <a href="postList.html" class="back_login"><</a>
         <span class="logo_title">아무말 대잔치</span>
-        <img
-          src="../../images/icon/profile_img.webp"
-          alt=""
-          class="profile_image"
-        />
+        <img src="../../images/icon/profile_img.webp" alt="" />
       </div>
     </header>
-    <div class="box">
-      <section class="page_modify">
-        <div class="title_box">
-          <h2>회원 정보 수정</h2>
-        </div>
-        <div class="user_info">
-          <article class="profile">
-            <h4>프로필 사진*</h4>
-            <div class="profile_img_container">
-              <img
-                src="../../images/icon/profile_img.webp"
-                class="profile_image"
-              />
-            </div>
-          </article>
-          <article>
-            <h4>이메일</h4>
-            <p>startupcode@gmail.com</p>
-          </article>
-          <article class="nickname_container">
-            <h4>닉네임</h4>
-            <input type="text" placeholder="스타트업코드" />
-            <p class="helper_text">*helper text</p>
-          </article>
-          <div class="modify_delete">
-            <button>수정하기</button>
-            <a>회원 탈퇴</a>
+    <h2 class="title">게시글 작성</h2>
+    <section id="post_write">
+      <div class="write_box">
+        <article class="write_title">
+          <h4>제목*</h4>
+          <input type="text" class="title_input" />
+        </article>
+        <article class="write_content">
+          <h4>내용*</h4>
+          <textarea name="" id="" class="content_input"></textarea>
+          <p class="helper_text">*helper text</p>
+        </article>
+        <article class="upload_image">
+          <h4>이미지</h4>
+          <div class="upload_image_button">
+            <button>파일 선택</button>
+            <span>파일을 선택해주세요</span>
           </div>
-        </div>
-      </section>
-      <button class="submit_button">수정완료</button>
+        </article>
+      </div>
+    </section>
+    <div class="button_box">
+      <button class="submit_button">완료</button>
     </div>
   </body>
 </html>
