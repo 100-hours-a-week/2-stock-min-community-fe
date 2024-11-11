@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../CSS/common.css" />
+    <link rel="stylesheet" href="../CSS/regist.css" />
+
+    <title>Document</title>
+  </head>
+  <body>
+    <header id="logo">
+      <a href="index.html" class="back_login"><</a>
+      <span class="logo_title">아무말 대잔치</span>
+    </header>
+    <div class="regist_box">
+      <h2>회원가입</h2>
+      <form id="signupForm">
+        <!-- 프로필 사진 -->
+        <section>
+          <article>
+            <h4>프로필 사진</h4>
+            <p class="helper_text">* helper text</p>
+          </article>
+          <article>
+            <div class="circle">+</div>
+          </article>
+        </section>
+        <!-- 인적사항 입력 -->
+        <section>
+          <article>
+            <p>이메일*</p>
+            <input
+              type="text"
+              placeholder="이메일을 입력해주세요"
+              id="input_email"
+            />
+            <p class="helper_text">* helper text</p>
+          </article>
+          <article>
+            <p>비밀번호*</p>
+            <input
+              type="text"
+              placeholder="비밀번호를 입력해주세요"
+              id="input_password"
+            />
+            <p class="helper_text">* helper text</p>
+          </article>
+          <article>
+            <p>비밀번호 확인*</p>
+            <input type="text" placeholder="비밀번호를 한번 더 입력해주세요" />
+            <p class="helper_text">* helper text</p>
+          </article>
+          <article>
+            <p>닉네임*</p>
+            <input
+              type="text"
+              placeholder="닉네임을 입력해주세요"
+              id="input_nickname"
+            />
+            <p class="helper_text">* helper text</p>
+          </article>
+          <button type="button">회원가입</button>
+        </section>
+      </form>
+      <a id="go_to_login">로그인하러 가기</a>
+    </div>
+    <script src="../js/regist.js"></script>
+  </body>
+</html>

@@ -1,0 +1,76 @@
+* {
+  list-style: none;
+}
+body {
+  margin: 0 auto;
+  height: 100vh;
+  background-color: #f4f5f7;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+button {
+  border: none;
+  outline: none;
+  background: none;
+  box-shadow: none;
+  cursor: pointer;
+  padding: 0.3rem;
+  margin: 0;
+  background-color: #aca0eb;
+  color: #ffffff;
+  border-radius: 0.3rem;
+}
+textarea {
+  border: none;
+  outline: none;
+  background: none;
+  box-shadow: none;
+  resize: none;
+}
+
+.profile_image {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 1rem;
+}
+.helper_text {
+  color: red;
+  margin-bottom: 0.5rem;
+}
+
+/* 로고 css */
+#logo_placeholder {
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: solid;
+}
+#logo_placeholder img {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 1rem;
+}
+.profile_menu {
+  display: flex;
+  flex-direction: column;
+  margin-top: 6rem;
+}
+.profile_menu ul {
+  margin: 0;
+  padding: 0.5rem;
+  background-color: #cccccc;
+  box-sizing: content-box;
+}
+.profile_menu ul li {
+  padding: 0.3rem;
+}
+.back_login {
+}
+.logo_title {
+  font-family: '카페24 써라운드 에어 OTF';
+}
