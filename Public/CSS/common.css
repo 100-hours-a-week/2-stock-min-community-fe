@@ -6,6 +6,11 @@ body {
   height: 100vh;
   background-color: #f4f5f7;
 }
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
 a {
   text-decoration: none;
   color: inherit;
@@ -23,6 +28,11 @@ button {
   color: #ffffff;
   border-radius: 0.3rem;
 }
+input {
+  width: 15rem;
+  height: 1.5rem;
+  border-radius: 0.3rem;
+}
 textarea {
   border: none;
   outline: none;
@@ -30,47 +40,60 @@ textarea {
   box-shadow: none;
   resize: none;
 }
-
-.profile_image {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 1rem;
-}
 .helper_text {
   color: red;
-  margin-bottom: 0.5rem;
+}
+.profile_img {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 2rem;
 }
 
-/* 로고 css */
-#logo_placeholder {
-  height: 5rem;
+/* 로고 */
+#logo {
   display: flex;
   justify-content: center;
-  flex-direction: row;
-  align-items: center;
   border-bottom: solid;
 }
-#logo_placeholder img {
+.logo_container {
+  width: 30rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.logo_container div {
+  width: 10rem;
+  display: flex;
+  justify-content: center;
+}
+.logo_container img {
+  margin-top: 0.5rem;
   width: 2rem;
   height: 2rem;
   border-radius: 1rem;
-}
-.profile_menu {
-  display: flex;
-  flex-direction: column;
-  margin-top: 6rem;
-}
-.profile_menu ul {
-  margin: 0;
-  padding: 0.5rem;
-  background-color: #cccccc;
-  box-sizing: content-box;
-}
-.profile_menu ul li {
-  padding: 0.3rem;
-}
-.back_login {
 }
 .logo_title {
   font-family: '카페24 써라운드 에어 OTF';
+}
+.profile_box {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: end;
+}
+.profile_box img {
+  margin-right: 1rem;
+}
+.profile_menu {
+  position: absolute;
+  top: 3rem;
+  display: block;
+}
+
+.profile_menu ul li {
+  background-color: #d9d9d9;
+  width: 7rem;
+  padding: 0.3rem;
+  text-align: center;
+  cursor: pointer;
 }

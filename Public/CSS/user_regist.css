@@ -1,0 +1,27 @@
+#regist {
+  height: 60rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.profile_regist {
+  width: 15rem;
+}
+.profile_image_add {
+  display: flex;
+  justify-content: center;
+}
+.circle {
+  background-color: #cccccc;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.regist_button {
+  width: 15rem;
+}
