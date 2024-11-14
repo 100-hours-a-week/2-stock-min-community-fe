@@ -72,6 +72,9 @@ textarea {
   height: 2rem;
   border-radius: 1rem;
 }
+.logo_container .logo_back {
+  cursor: pointer;
+}
 .logo_title {
   font-family: '카페24 써라운드 에어 OTF';
 }

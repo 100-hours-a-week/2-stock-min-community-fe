@@ -25,3 +25,8 @@
 .regist_button {
   width: 15rem;
 }
+
+/* '로그인하러가기' 버튼 */
+#go_login {
+  cursor: pointer;
+}
