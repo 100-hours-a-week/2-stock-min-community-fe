@@ -40,6 +40,10 @@ textarea {
   box-shadow: none;
   resize: none;
 }
+.hidden {
+  visibility: hidden;
+}
+
 .helper_text {
   color: red;
 }

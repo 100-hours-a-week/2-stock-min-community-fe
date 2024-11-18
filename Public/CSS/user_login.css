@@ -8,6 +8,9 @@
 #regist {
   cursor: pointer;
 }
+#submit_button {
+  background-color: #aca0eb;
+}
 button {
   width: 15rem;
 }

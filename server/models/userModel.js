@@ -15,11 +15,23 @@ function getUsers() {
   }
 }
 
+function isEmailDuplicate(email) {
+  const users = getUsers();
+  return users.some((user) => user.email === email);
+}
+
 // 사용자 데이터 추가하기
 function addUser(user) {
   const users = getUsers();
   users.push(user);
   fs.writeFileSync(filePath, JSON.stringify(users, null, 2), 'utf8');
 }
+function deleteUser(email) {
+  const users = getUsers();
+  const deleteIndex = users.findIndex((user) => user.email === email);
+  users.splice(deleteIndex, 1);
+  fs.writeFileSync(filePath, JSON.stringify(users, null, 2), 'utf8');
+  return true;
+}
 
-module.exports = { getUsers, addUser };
+module.exports = { getUsers, addUser, isEmailDuplicate, deleteUser };

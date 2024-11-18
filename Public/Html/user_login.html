@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../CSS/common.css" />
-    <link rel="stylesheet" href="../CSS/user_login.css" />
+    <link rel="stylesheet" href="/CSS/common.css" />
+    <link rel="stylesheet" href="/CSS/user_login.css" />
     <title>Document</title>
   </head>
   <body>
     <header id="logo"></header>
 
-    <form id="login" action="http://localhost:3000/login" method="POST">
+    <form id="login">
       <h1>로그인</h1>
       <article class="login_input">
         <div>
@@ -30,13 +30,15 @@
             name="password"
             placeholder="비밀번호를 입력하세요"
           />
-          <p class="helper_text">*helper text</p>
+          <p class="helper_text hidden" id="helper_text">*helper text</p>
         </div>
       </article>
-      <button type="submit">로그인</button>
+      <button id="submit_button">로그인</button>
       <p id="regist">회원가입</p>
     </form>
-    <script src="../js/user_login.js"></script>
-    <script src="../js/logo.js" defer></script>
+
+    <script src="/js/user_login.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/js/logo.js" defer></script>
   </body>
 </html>

@@ -1,6 +1,6 @@
 // function getRelativeImagePath(relativePath) {
 //   const depth = (window.location.pathname.match(/\//g) || []).length - 2;
-//   const upLevel = '../'.repeat(depth);
+//   const upLevel = '/'.repeat(depth);
 //   console.log(`${upLevel}${relativePath}`);
 //   return `${upLevel}${relativePath}`;
 // }
@@ -37,7 +37,7 @@ const logo_no_back = `<div class="logo_container">
       </div>
       <div class="profile_box" id="profile_box">
         <img src="
-          ../images/icon/profile_img.webp" alt="" id="profile_img"/>
+          /images/icon/profile_img.webp" alt="" id="profile_img"/>
         <div class="profile_menu" id="profile_menu">
           
         </div>
@@ -51,7 +51,7 @@ const logo_all = `<div class="logo_container">
         <p class="logo_title">아무말 대잔치</p>
       </div>
       <div class="profile_box" id="profile_box">
-        <img src="../images/icon/profile_img.webp" alt="" id="profile_img"/>
+        <img src="/images/icon/profile_img.webp" alt="" id="profile_img"/>
         <div class="profile_menu" id="profile_menu">
           
         </div>
@@ -73,10 +73,16 @@ if (url.includes('user_login.html')) {
 }
 document.getElementById('profile_img').addEventListener('mouseenter', () => {
   document.getElementById('profile_menu').innerHTML = `<ul id="menu">
-                <li>회원정보 수정</li>
-                <li>비밀번호 수정</li>
-                <li>로그아웃</li>
+                <li id="nickname_modify">회원정보 수정</li>
+                <li id="password_modify">비밀번호 수정</li>
+                <li id="logout">로그아웃</li>
             </ul>`;
+  document.getElementById('nickname_modify').addEventListener('click', () => {
+    window.location.href = '/api/v1/user/modify/nickname';
+  });
+  document.getElementById('password_modify').addEventListener('click', () => {
+    window.location.href = '/api/v1/user/modify/password';
+  });
 });
 document.getElementById('profile_box').addEventListener('mouseleave', () => {
   document.getElementById('profile_menu').innerHTML = ``;

@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../CSS/common.css" />
-    <link rel="stylesheet" href="../CSS/user_regist.css" />
+    <link rel="stylesheet" href="/CSS/common.css" />
+    <link rel="stylesheet" href="/CSS/user_regist.css" />
     <title>Document</title>
   </head>
   <body>
@@ -12,45 +12,62 @@
 
     <section id="regist">
       <h1>회원가입</h1>
-      <article class="profile_regist">
-        <h4>프로필 사진</h4>
-        <p class="helper_text">*helper text</p>
-        <div class="profile_image_add">
-          <div class="circle">
-            <p>+</p>
-          </div>
+
+      <form class="register_form" id="register_form">
+        <article>
+          <ul>
+            <li class="profile_regist">
+              <h4>프로필 사진</h4>
+              <p class="helper_text hidden" id="helper_text_profile">
+                *helper text
+              </p>
+              <div class="profile_image_add">
+                <div class="circle" onclick="openFileDialog()">
+                  <p>+</p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <h4>이메일*</h4>
+              <input type="text" id="email" name="email" />
+              <p class="helper_text hidden" id="helper_text_email">
+                *helper text
+              </p>
+            </li>
+            <li>
+              <h4>비밀번호*</h4>
+              <input type="text" id="password" name="password" />
+              <p class="helper_text hidden" id="helper_text_password">
+                *helper text
+              </p>
+            </li>
+            <li>
+              <h4>비밀번호 확인*</h4>
+              <input type="text" id="password_check" name="password_check" />
+              <p class="helper_text hidden" id="helper_text_password_check">
+                *helper text
+              </p>
+            </li>
+            <li>
+              <h4>닉네임</h4>
+              <input type="text" id="nickname" name="nickname" />
+              <p class="helper_text hidden" id="helper_text_nickname">
+                *helper text
+              </p>
+            </li>
+          </ul>
+        </article>
+
+        <div>
+          <button class="regist_button" id="submit_button">회원가입</button>
         </div>
-      </article>
-      <article>
-        <ul>
-          <li>
-            <h4>이메일*</h4>
-            <input type="text" />
-            <p class="helper_text">*helper text</p>
-          </li>
-          <li>
-            <h4>비밀번호*</h4>
-            <input type="text" />
-            <p class="helper_text">*helper text</p>
-          </li>
-          <li>
-            <h4>비밀번호 확인*</h4>
-            <input type="text" />
-            <p class="helper_text">*helper text</p>
-          </li>
-          <li>
-            <h4>닉네임</h4>
-            <input type="text" />
-            <p class="helper_text">*helper text</p>
-          </li>
-        </ul>
-      </article>
-      <div>
-        <button class="regist_button">회원가입</button>
-      </div>
+        <input type="file" id="fileInput" name="fileInput" accept="image/*" />
+      </form>
+
       <p id="go_login">로그인하러 가기</p>
     </section>
-    <script src="../js/user_regist.js" defer></script>
-    <script src="../js/logo.js"></script>
+    <script src="/js/user_regist.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/js/logo.js"></script>
   </body>
 </html>

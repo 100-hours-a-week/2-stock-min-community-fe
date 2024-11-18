@@ -12,6 +12,9 @@
   display: flex;
   justify-content: center;
 }
+.register_form {
+  width: 240px;
+}
 .circle {
   background-color: #cccccc;
   width: 10rem;
@@ -29,4 +32,8 @@
 /* '로그인하러가기' 버튼 */
 #go_login {
   cursor: pointer;
+}
+
+#fileInput {
+  display: none;
 }

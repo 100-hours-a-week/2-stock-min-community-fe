@@ -1,0 +1,23 @@
+.modal_box {
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  width: 350px;
+  height: 200px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  top: 40%;
+}
+.modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.button_box * {
+  width: 100px;
+  margin: 0 10px;
+}
+.close_btn {
+  background-color: black;
+}

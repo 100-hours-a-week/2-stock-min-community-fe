@@ -1,6 +1,5 @@
 const userModel = require('../models/userModel');
 const path = require('path');
-// const path = require('path');
 
 // app.use(express.static(path.join(__dirname, '../Public')));
 exports.getRegistPage = (req, res) => {
@@ -10,6 +9,16 @@ exports.getRegistPage = (req, res) => {
 };
 exports.getLoginPage = (req, res) => {
   res.sendFile(path.join(__dirname, '../../Public', 'Html', 'user_login.html'));
+};
+exports.getModifyNicknamePage = (req, res) => {
+  res.sendFile(
+    path.join(__dirname, '../../Public', 'Html', 'user_nickname_modify.html')
+  );
+};
+exports.getPostList = (req, res) => {
+  res.sendFile(
+    path.join(__dirname, '../../Public', 'Html', 'post', 'post_list.html')
+  );
 };
 
 exports.createUser = (req, res) => {
@@ -35,18 +44,49 @@ exports.createUser = (req, res) => {
     });
   }
 };
+exports.deleteUser = (req, res) => {
+  const email = req.session.user.email;
+  const success = userModel.deleteUser(email);
+  if (success) {
+    // 세션 삭제 및 응답
 
-exports.getUser = (req, res) => {
+    req.session.destroy((err) => {
+      if (err) {
+        console.error('세션 삭제 실패:', err);
+        return res.status(500).send('Error deleting session');
+      }
+      console.log('success delete');
+      res.clearCookie('connect.sid'); // 세션 쿠키 삭제
+      res.status(200).send('User successfully deleted');
+    });
+  } else {
+    res.status(404).send('User not found');
+  }
+};
+
+exports.login = (req, res) => {
+  const { email, password } = req.body;
   const userList = userModel.getUsers();
+  const user = userList.find(
+    (u) => u.email === email && u.password === password
+  );
+  if (user) {
+    req.session.user = { email: user.email, nickname: user.nickname };
+    console.log(req.session.user);
+    res.cookie('loggedIn', true, { httpOnly: true });
+    return res.status(200).send('Login successful');
+  }
+  res.status(401).send('Invalid email or password');
+};
 
-  userList.map((item) => {
-    console.log(item);
-    if (item.email === req.body.email && item.password === req.body.password) {
-      res.json({ message: 'User login success', data: req.body });
-    } else {
-      res.sendFile(
-        path.join(__dirname, '../../Public', 'Html', 'user_login.html')
-      );
-    }
-  });
+exports.checkEmail = (req, res) => {
+  const { email } = req.body;
+
+  const isDuplicate = userModel.isEmailDuplicate(email);
+
+  if (isDuplicate) {
+    return res.json({ duplicated: true });
+  } else {
+    return res.json({ duplicated: false });
+  }
 };
