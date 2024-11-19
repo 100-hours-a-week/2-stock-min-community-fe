@@ -78,10 +78,10 @@ document.getElementById('profile_img').addEventListener('mouseenter', () => {
                 <li id="logout">로그아웃</li>
             </ul>`;
   document.getElementById('nickname_modify').addEventListener('click', () => {
-    window.location.href = '/api/v1/user/modify/nickname';
+    window.location.href = '/api/v1/user/nickname';
   });
   document.getElementById('password_modify').addEventListener('click', () => {
-    window.location.href = '/api/v1/user/modify/password';
+    window.location.href = '/api/v1/user/password';
   });
 });
 document.getElementById('profile_box').addEventListener('mouseleave', () => {

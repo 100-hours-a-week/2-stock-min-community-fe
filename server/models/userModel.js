@@ -33,5 +33,11 @@ function deleteUser(email) {
   fs.writeFileSync(filePath, JSON.stringify(users, null, 2), 'utf8');
   return true;
 }
+function patchUser(email, field, data) {
+  const users = getUsers();
+  const patchIndex = users.findIndex((user) => user.email === email);
+  users[patchIndex][field] = data;
+  fs.writeFileSync(filePath, JSON.stringify(users, null, 2), 'utf8');
+}
 
-module.exports = { getUsers, addUser, isEmailDuplicate, deleteUser };
+module.exports = { getUsers, addUser, isEmailDuplicate, deleteUser, patchUser };

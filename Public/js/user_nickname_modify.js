@@ -1,10 +1,24 @@
 const change_button = document.getElementById('image_modify');
-const modify_button = document.getElementById('submit_button');
+const modify_button = document.getElementById('modify_button');
+const modify_toast = document.getElementById('modify_toast');
 const user_delete = document.getElementById('user_delete');
-change_button.addEventListener('click', () => {});
-modify_button.addEventListener('click', () => {
-  // - 수정하기 클릭시
-  //     - 수정 성공하면 5.'수정완료'라는 토스트 메시지가 보여진다.
+modify_button.addEventListener('click', async () => {
+  const nicknameValue = document.getElementById('nickname_update').value;
+  const patchList = {
+    data: nicknameValue,
+    field: 'nickname',
+  };
+  try {
+    setTimeout(() => modify_toast.classList.add('show'), 100);
+    setTimeout(() => {
+      modify_toast.classList.remove('show');
+      setTimeout(() => container.removeChild(toast), 300);
+    }, 3000);
+    const response = await axios.patch('/api/v1/user', patchList);
+  } catch (error) {
+    console.error(error);
+    alert('Error');
+  }
 });
 
 document.getElementById('close_btn').addEventListener('click', () => {

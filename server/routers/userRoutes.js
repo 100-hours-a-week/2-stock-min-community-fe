@@ -23,9 +23,14 @@ router.get(
   isAuthenticated,
   userController.getModifyNicknamePage
 );
-router.patch('/user/nickname');
+router.get(
+  '/user/password',
+  isAuthenticated,
+  userController.getModifyPasswordPage
+);
+router.patch('/user', isAuthenticated, userController.patchUser);
 
-router.delete('/user', userController.deleteUser);
+router.delete('/user', isAuthenticated, userController.deleteUser);
 
 router.post('/check-email', userController.checkEmail);
 

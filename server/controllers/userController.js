@@ -1,7 +1,7 @@
 const userModel = require('../models/userModel');
 const path = require('path');
 
-// app.use(express.static(path.join(__dirname, '../Public')));
+// USER
 exports.getRegistPage = (req, res) => {
   res.sendFile(
     path.join(__dirname, '../../Public', 'Html', 'user_regist.html')
@@ -15,6 +15,13 @@ exports.getModifyNicknamePage = (req, res) => {
     path.join(__dirname, '../../Public', 'Html', 'user_nickname_modify.html')
   );
 };
+exports.getModifyPasswordPage = (req, res) => {
+  res.sendFile(
+    path.join(__dirname, '../../Public', 'Html', 'user_password_modify.html')
+  );
+};
+
+// POST
 exports.getPostList = (req, res) => {
   res.sendFile(
     path.join(__dirname, '../../Public', 'Html', 'post', 'post_list.html')
@@ -62,6 +69,11 @@ exports.deleteUser = (req, res) => {
   } else {
     res.status(404).send('User not found');
   }
+};
+exports.patchUser = (req, res) => {
+  const { data, field } = req.body;
+  const email = req.session.user.email;
+  userModel.patchUser(email, field, data);
 };
 
 exports.login = (req, res) => {

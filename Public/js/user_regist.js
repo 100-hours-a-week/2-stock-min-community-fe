@@ -101,7 +101,6 @@ async function validateField(field, value, additionalValue = null) {
   helperTexts[field].textContent = errorMessage;
   helperTexts[field].classList.toggle('hidden', !errorMessage);
 }
-function button_active() {}
 
 // 이벤트 리스너 추가
 inputs.profile.addEventListener('change', () => {
@@ -127,11 +126,10 @@ inputs.nickname.addEventListener('input', () => {
   validateField('nickname', inputs.nickname.value);
 });
 
-// 회원가입 버튼 활성화 처리
+// 데이터 서버로 전송
 document
   .getElementById('register_form')
   .addEventListener('submit', async () => {
-    // 데이터 서버로 전송
     const userData = {
       profile: inputs.profile.value,
       email: inputs.email.value,

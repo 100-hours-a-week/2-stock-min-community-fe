@@ -29,11 +29,15 @@
           </article>
           <article class="nickname_container">
             <h4>닉네임</h4>
-            <input type="text" placeholder="스타트업코드" />
+            <input
+              type="text"
+              placeholder="스타트업코드"
+              id="nickname_update"
+            />
             <p class="helper_text">*helper text</p>
           </article>
           <div class="modify_delete">
-            <button>수정하기</button>
+            <button id="modify_button">수정하기</button>
             <p id="user_delete">회원 탈퇴</p>
           </div>
         </div>
@@ -50,7 +54,7 @@
         </div>
       </div>
 
-      <button class="submit_button" id="submit_button">수정완료</button>
+      <button class="modify_toast" id="modify_toast">수정완료</button>
       <script src="/js/logo.js"></script>
       <script src="/js/user_nickname_modify.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

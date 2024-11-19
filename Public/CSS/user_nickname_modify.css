@@ -61,7 +61,16 @@ h4 {
   margin: 1rem 0 2rem 0;
 }
 
-.submit_button {
+.modify_toast {
+  position: absolute;
   width: 5rem;
   border-radius: 0.7rem;
+  top: 70%;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.show {
+  opacity: 1;
+  transform: translateY(0);
 }
