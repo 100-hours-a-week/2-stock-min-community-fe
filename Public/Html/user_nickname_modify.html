@@ -11,7 +11,7 @@
   <body>
     <header id="logo"></header>
     <div class="box">
-      <section class="page_modify">
+      <form class="page_modify" id="modify_form">
         <div class="title_box">
           <h2>회원 정보 수정</h2>
         </div>
@@ -25,7 +25,7 @@
           </article>
           <article>
             <h4>이메일</h4>
-            <p>startupcode@gmail.com</p>
+            <p id="email">startupcode@gmail.com</p>
           </article>
           <article class="nickname_container">
             <h4>닉네임</h4>
@@ -34,14 +34,14 @@
               placeholder="스타트업코드"
               id="nickname_update"
             />
-            <p class="helper_text">*helper text</p>
+            <p class="helper_text hidden" id="helper_text">*helper text</p>
           </article>
           <div class="modify_delete">
             <button id="modify_button">수정하기</button>
             <p id="user_delete">회원 탈퇴</p>
           </div>
         </div>
-      </section>
+      </form>
 
       <div class="modal_box hidden" id="modal">
         <div class="modal">
@@ -56,7 +56,7 @@
 
       <button class="modify_toast" id="modify_toast">수정완료</button>
       <script src="/js/logo.js"></script>
-      <script src="/js/user_nickname_modify.js"></script>
+      <script src="/js/user_nickname_modify.js" defer></script>
       <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
       <script src="/js/modal.js"></script>
     </div>

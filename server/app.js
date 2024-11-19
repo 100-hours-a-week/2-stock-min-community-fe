@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const userRoutes = require('./routers/userRoutes');
+const postsRoutes = require('./routers/postsRouter');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -30,6 +31,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/v1', userRoutes);
+app.use('/api/v1/posts', postsRoutes);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

@@ -58,16 +58,24 @@ inputs.passwordCheck.addEventListener('input', () => {
   );
 });
 
-document.getElementById('patch_form').addEventListener('submit', async () => {
-  const passwordValue = inputs.password.value;
-  const patchList = {
-    data: passwordValue,
-    field: 'password',
-  };
-  try {
-    const response = await axios.patch('/api/v1/user', patchList);
-  } catch (error) {
-    console.error(error);
-    alert('Error');
-  }
-});
+document
+  .getElementById('patch_form')
+  .addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const passwordValue = inputs.password.value;
+    const patchList = {
+      data: passwordValue,
+      field: 'password',
+    };
+    try {
+      setTimeout(() => modify_toast.classList.add('show'), 100);
+      setTimeout(() => {
+        modify_toast.classList.remove('show');
+        setTimeout(() => container.removeChild(toast), 300);
+      }, 3000);
+      const response = await axios.patch('/api/v1/user', patchList);
+    } catch (error) {
+      console.error(error);
+      alert('Error');
+    }
+  });

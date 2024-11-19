@@ -21,13 +21,16 @@ exports.getModifyPasswordPage = (req, res) => {
   );
 };
 
-// POST
-exports.getPostList = (req, res) => {
-  res.sendFile(
-    path.join(__dirname, '../../Public', 'Html', 'post', 'post_list.html')
-  );
-};
+exports.getCurrentUser = (req, res) => {
+  if (!req.session.user) {
+    return res.status(401).json({ message: 'Unauthorized: No user logged in' });
+  }
 
+  res.status(200).json({
+    email: req.session.user.email,
+    nickname: req.session.user.nickname,
+  });
+};
 exports.createUser = (req, res) => {
   try {
     const { email, password, nickname, profile_image } = req.body;

@@ -8,15 +8,13 @@ function isAuthenticated(req, res, next) {
   }
   next(); // 인증 통과 시 다음 로직으로 진행
 }
-
+// USER
 router.get('/regist', userController.getRegistPage);
 
 router.post('/regist', userController.createUser);
 
 router.get('/login', userController.getLoginPage);
 router.post('/login', userController.login);
-
-router.get('/post/list', isAuthenticated, userController.getPostList);
 
 router.get(
   '/user/nickname',
@@ -28,8 +26,9 @@ router.get(
   isAuthenticated,
   userController.getModifyPasswordPage
 );
-router.patch('/user', isAuthenticated, userController.patchUser);
 
+router.get('/user', isAuthenticated, userController.getCurrentUser);
+router.patch('/user', isAuthenticated, userController.patchUser);
 router.delete('/user', isAuthenticated, userController.deleteUser);
 
 router.post('/check-email', userController.checkEmail);
