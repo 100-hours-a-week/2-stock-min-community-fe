@@ -14,6 +14,7 @@ router.get('/', isAuthenticated, postsController.getPosts);
 router.post('/', isAuthenticated, postsController.createPost);
 
 router.get('/new', isAuthenticated, postsController.getPostNewPage);
-router.get('/:postID');
+router.get('/:postID', isAuthenticated, postsController.getPostDetail);
+router.post('/comment', isAuthenticated, postsController.createComment);
 
 module.exports = router;

@@ -9,19 +9,25 @@ function getPosts() {
     const data = fs.readFileSync(filePath, 'utf8');
     return JSON.parse(data);
   } catch (error) {
-    console.error('Error reading users file:', error);
+    console.error('Error reading posts file:', error);
     return [];
   }
 }
 
 function addPosts(post) {
   const posts = getPosts();
-  const newPostID =
-    posts.length > 0 ? Math.max(...posts.map((post) => post.postID)) + 1 : 1;
+
   posts.push(post);
-  fs.writeFileSync(filePath, JSON.stringify(users, null, 2), 'utf8');
+  fs.writeFileSync(filePath, JSON.stringify(posts, null, 2), 'utf8');
 }
 
 function deletePosts(post) {}
 
-module.exports = { getPosts, addPosts, deletePosts };
+function addComment(postID, data) {
+  const posts = getPosts();
+  posts[postID].commentData = posts[postID].commentData || [];
+  posts[postID].commentData.push(data);
+  fs.writeFileSync(filePath, JSON.stringify(posts, null, 2), 'utf8');
+}
+
+module.exports = { getPosts, addPosts, deletePosts, addComment };

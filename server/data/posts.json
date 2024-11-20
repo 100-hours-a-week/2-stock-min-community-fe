@@ -1,0 +1,64 @@
+[
+  {
+    "postID": 1,
+    "title": "qwe",
+    "content": "rqweqwe",
+    "like": 0,
+    "comment": 0,
+    "view": 0,
+    "postDate": "2024. 11. 20.",
+    "autor": "새콤",
+    "commentData": [
+      {
+        "comment": "weqw",
+        "commentDate": "2024-11-20T15:31:53.919Z",
+        "commentAutor": ""
+      },
+      {
+        "comment": "34123",
+        "commentDate": "2024-11-20T15:36:15.699Z",
+        "commentAutor": "새콤"
+      }
+    ]
+  },
+  {
+    "postID": 2,
+    "title": "qwe",
+    "content": "rqweqwerqwe",
+    "like": 0,
+    "comment": 0,
+    "view": 0,
+    "postDate": "2024. 11. 20.",
+    "autor": "새콤"
+  },
+  {
+    "postID": 3,
+    "title": "qwe",
+    "content": "rqweqw",
+    "like": 0,
+    "comment": 0,
+    "view": 0,
+    "postDate": "2024. 11. 20.",
+    "autor": "새콤"
+  },
+  {
+    "postID": 4,
+    "title": "qweㅂㅈㄷ",
+    "content": "rqweqwrqwr",
+    "like": 0,
+    "comment": 0,
+    "view": 0,
+    "postDate": "2024. 11. 20.",
+    "autor": "새콤"
+  },
+  {
+    "postID": 5,
+    "title": "댓글테스트",
+    "content": "제발",
+    "like": 0,
+    "comment": 0,
+    "view": 0,
+    "postDate": "2024. 11. 21.",
+    "autor": "새콤"
+  }
+]
