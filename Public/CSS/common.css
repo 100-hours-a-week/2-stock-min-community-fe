@@ -43,6 +43,9 @@ textarea {
 .hidden {
   visibility: hidden;
 }
+.none {
+  display: none;
+}
 
 .helper_text {
   color: red;

@@ -1,64 +1,46 @@
 [
   {
-    "postID": 1,
-    "title": "qwe",
-    "content": "rqweqwe",
+    "postID": 3,
+    "title": "안녕",
+    "content": "하세요",
     "like": 0,
     "comment": 0,
     "view": 0,
-    "postDate": "2024. 11. 20.",
+    "postDate": "2024-11-21 16:28:10",
     "autor": "새콤",
     "commentData": [
       {
-        "comment": "weqw",
-        "commentDate": "2024-11-20T15:31:53.919Z",
-        "commentAutor": ""
+        "comment": "ㅂㅈㄷㅂㅈㄷ",
+        "commentDate": "2024-11-21 16:28:15",
+        "commentAutor": "새콤"
       },
       {
-        "comment": "34123",
-        "commentDate": "2024-11-20T15:36:15.699Z",
+        "comment": "그렇잔항요",
+        "commentDate": "2024-11-21 16:28:37",
         "commentAutor": "새콤"
       }
     ]
   },
   {
-    "postID": 2,
-    "title": "qwe",
-    "content": "rqweqwerqwe",
-    "like": 0,
-    "comment": 0,
-    "view": 0,
-    "postDate": "2024. 11. 20.",
-    "autor": "새콤"
-  },
-  {
-    "postID": 3,
-    "title": "qwe",
-    "content": "rqweqw",
-    "like": 0,
-    "comment": 0,
-    "view": 0,
-    "postDate": "2024. 11. 20.",
-    "autor": "새콤"
-  },
-  {
     "postID": 4,
-    "title": "qweㅂㅈㄷ",
-    "content": "rqweqwrqwr",
+    "title": "민항섭바보",
+    "content": "멍청이",
     "like": 0,
     "comment": 0,
     "view": 0,
-    "postDate": "2024. 11. 20.",
-    "autor": "새콤"
-  },
-  {
-    "postID": 5,
-    "title": "댓글테스트",
-    "content": "제발",
-    "like": 0,
-    "comment": 0,
-    "view": 0,
-    "postDate": "2024. 11. 21.",
-    "autor": "새콤"
+    "postDate": "2024-11-21 18:43:10",
+    "autor": "새콤",
+    "commentData": [
+      {
+        "comment": "이윤서바보",
+        "commentDate": "2024-11-21 18:49:07",
+        "commentAutor": "새콤"
+      },
+      {
+        "comment": "에요",
+        "commentDate": "2024-11-21 18:49:18",
+        "commentAutor": "새콤"
+      }
+    ]
   }
 ]

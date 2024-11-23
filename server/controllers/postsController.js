@@ -16,6 +16,11 @@ exports.getPostDetail = (req, res) => {
     path.join(__dirname, '../../Public', 'Html', 'post', 'post_detail.html')
   );
 };
+exports.getModifyPage = (req, res) => {
+  res.sendFile(
+    path.join(__dirname, '../../Public', 'Html', 'post', 'post_modify.html')
+  );
+};
 
 exports.createPost = (req, res) => {
   try {
@@ -32,11 +37,6 @@ exports.createPost = (req, res) => {
       view: 0,
       postDate,
       autor: req.session.user.nickname,
-      commentData: {
-        comment: '',
-        commentDate: '',
-        commentAutor: '',
-      },
     };
     console.log(postData);
     postsModel.addPosts(postData);
@@ -51,10 +51,17 @@ exports.createPost = (req, res) => {
     });
   }
 };
+exports.updatePost = (req, res) => {
+  postsModel.updatePosts(req.body.postID, req.body.postData);
+};
+exports.deletePost = (req, res) => {
+  postsModel.deletePosts(req.body.index);
+};
 exports.createComment = (req, res) => {
   req.body.info.commentAutor = req.session.user.nickname;
   postsModel.addComment(req.body.postID, req.body.info);
 };
+
 exports.getPosts = (req, res) => {
   const posts = postsModel.getPosts();
 

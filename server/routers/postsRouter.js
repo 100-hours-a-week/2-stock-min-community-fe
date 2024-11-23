@@ -12,9 +12,12 @@ function isAuthenticated(req, res, next) {
 router.get('/list', isAuthenticated, postsController.getPostListPage);
 router.get('/', isAuthenticated, postsController.getPosts);
 router.post('/', isAuthenticated, postsController.createPost);
+router.patch('/:postID', isAuthenticated, postsController.updatePost);
+router.delete('/:postID', isAuthenticated, postsController.deletePost);
 
 router.get('/new', isAuthenticated, postsController.getPostNewPage);
 router.get('/:postID', isAuthenticated, postsController.getPostDetail);
+router.get('/edit/:postID', isAuthenticated, postsController.getModifyPage);
 router.post('/comment', isAuthenticated, postsController.createComment);
 
 module.exports = router;

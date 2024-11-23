@@ -21,7 +21,17 @@ function addPosts(post) {
   fs.writeFileSync(filePath, JSON.stringify(posts, null, 2), 'utf8');
 }
 
-function deletePosts(post) {}
+function updatePosts(postID, data) {
+  const posts = getPosts();
+  posts[postID].title = data.title;
+  posts[postID].content = data.content;
+  fs.writeFileSync(filePath, JSON.stringify(posts, null, 2), 'utf8');
+}
+function deletePosts(postID) {
+  const posts = getPosts();
+  posts.splice(postID, 1);
+  fs.writeFileSync(filePath, JSON.stringify(posts, null, 2), 'utf8');
+}
 
 function addComment(postID, data) {
   const posts = getPosts();
@@ -30,4 +40,4 @@ function addComment(postID, data) {
   fs.writeFileSync(filePath, JSON.stringify(posts, null, 2), 'utf8');
 }
 
-module.exports = { getPosts, addPosts, deletePosts, addComment };
+module.exports = { getPosts, addPosts, deletePosts, addComment, updatePosts };

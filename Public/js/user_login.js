@@ -69,7 +69,7 @@ login_form.addEventListener('submit', async (event) => {
   try {
     const response = await axios.post('/api/v1/login', userData);
     alert('로그인 성공');
-    window.location.href = '/api/v1/posts';
+    window.location.href = '/api/v1/posts/list';
   } catch (error) {
     console.error(error);
     alert('로그인 실패');
