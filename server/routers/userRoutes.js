@@ -16,6 +16,7 @@ router.post('/regist', userController.createUser);
 router.get('/login', userController.getLoginPage);
 router.post('/login', userController.login);
 
+router.get('/users', userController.fetchUsers);
 router.get(
   '/user/nickname',
   isAuthenticated,

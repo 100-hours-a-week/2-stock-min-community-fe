@@ -31,6 +31,7 @@ exports.getCurrentUser = (req, res) => {
     nickname: req.session.user.nickname,
   });
 };
+
 exports.createUser = (req, res) => {
   try {
     const { email, password, nickname, profile_image } = req.body;
@@ -92,6 +93,16 @@ exports.login = (req, res) => {
     return res.status(200).send('Login successful');
   }
   res.status(401).send('Invalid email or password');
+};
+
+exports.fetchUsers = (req, res) => {
+  userModel.getUsers((err, results) => {
+    if (err) {
+      res.status(500).send('사용자 데이터를 가져오는데 실패했습니다');
+      return;
+    }
+    res.status(200).json(results);
+  });
 };
 
 exports.checkEmail = (req, res) => {

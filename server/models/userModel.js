@@ -1,18 +1,18 @@
 const fs = require('fs');
 const path = require('path');
+const connection = require('../db');
 
 // 파일 경로 설정
 const filePath = path.join(__dirname, '../data/users.json');
 
 // 사용자 데이터 가져오기
-function getUsers() {
-  try {
-    const data = fs.readFileSync(filePath, 'utf8');
-    return JSON.parse(data);
-  } catch (error) {
-    console.error('Error reading users file:', error);
-    return [];
-  }
+function getUsers(callback) {
+  connection.query('SELECT * FROM USER', (err, results) => {
+    if (err) {
+      return callback(err, null);
+    }
+    callback(null, results);
+  });
 }
 
 function isEmailDuplicate(email) {
@@ -21,10 +21,14 @@ function isEmailDuplicate(email) {
 }
 
 // 사용자 데이터 추가하기
-function addUser(user) {
-  const users = getUsers();
-  users.push(user);
-  fs.writeFileSync(filePath, JSON.stringify(users, null, 2), 'utf8');
+function addUser(user, callback) {
+  connection.query(
+    `INSERT INTO USER VALUES (DEFAULT,${user.email},${user.profile_image},${user.password},${user.nickname}`
+  );
+  if (err) {
+    return callback(err, null);
+  }
+  callback(null, results);
 }
 function deleteUser(email) {
   const users = getUsers();
