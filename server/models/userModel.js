@@ -15,20 +15,31 @@ function getUsers(callback) {
   });
 }
 
-function isEmailDuplicate(email) {
-  const users = getUsers();
-  return users.some((user) => user.email === email);
+function isEmailDuplicate(callback) {
+  const query = 'SELECT email FROM USER';
+  connection.query(query, (err, results) => {
+    if (err) {
+      return callback(err, null);
+    }
+    callback(null, results);
+  });
 }
 
 // 사용자 데이터 추가하기
 function addUser(user, callback) {
+  console.log(user);
+  const query =
+    'INSERT INTO USER (email,profile,password,nickname) VALUES (?,?,?,?)';
   connection.query(
-    `INSERT INTO USER VALUES (DEFAULT,${user.email},${user.profile_image},${user.password},${user.nickname}`
+    query,
+    [user.email, user.profile, user.password, user.nickname],
+    (err, results) => {
+      if (err) {
+        return callback(err, null);
+      }
+      callback(null, results);
+    }
   );
-  if (err) {
-    return callback(err, null);
-  }
-  callback(null, results);
 }
 function deleteUser(email) {
   const users = getUsers();

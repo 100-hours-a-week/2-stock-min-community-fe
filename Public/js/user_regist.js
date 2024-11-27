@@ -129,7 +129,8 @@ inputs.nickname.addEventListener('input', () => {
 // 데이터 서버로 전송
 document
   .getElementById('register_form')
-  .addEventListener('submit', async () => {
+  .addEventListener('submit', async (event) => {
+    event.preventDefault();
     const userData = {
       profile: inputs.profile.value,
       email: inputs.email.value,

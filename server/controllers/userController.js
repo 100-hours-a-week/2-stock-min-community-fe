@@ -33,27 +33,15 @@ exports.getCurrentUser = (req, res) => {
 };
 
 exports.createUser = (req, res) => {
-  try {
-    const { email, password, nickname, profile_image } = req.body;
+  const userData = req.body;
 
-    const userData = {
-      email: email,
-      password: password,
-      nickname: nickname,
-      profile_image: profile_image || '',
-    };
-
-    userModel.addUser(userData);
-    res
-      .status(201)
-      .json({ message: 'User created successfully', data: userData });
-  } catch (error) {
-    console.error('Erorr in create user : ', error);
-    res.status(500).json({
-      message: 'Internal Server Error',
-      error: error.message,
-    });
-  }
+  userModel.addUser(userData, (error, results) => {
+    if (error) {
+      res.status(500).send('사용자 추가 실패');
+      return;
+    }
+    res.status(201).json({ message: '사용자 추가 성공', id: results.email });
+  });
 };
 exports.deleteUser = (req, res) => {
   const email = req.session.user.email;
@@ -108,11 +96,15 @@ exports.fetchUsers = (req, res) => {
 exports.checkEmail = (req, res) => {
   const { email } = req.body;
 
-  const isDuplicate = userModel.isEmailDuplicate(email);
-
-  if (isDuplicate) {
-    return res.json({ duplicated: true });
-  } else {
-    return res.json({ duplicated: false });
-  }
+  userModel.isEmailDuplicate((error, results) => {
+    if (error) {
+      res.status(500).send('이메일 불러오기 실패');
+      return false;
+    }
+    if (results.some((element) => element.email === email)) {
+      return res.json({ duplicated: true });
+    } else {
+      return res.json({ duplicated: false });
+    }
+  });
 };
