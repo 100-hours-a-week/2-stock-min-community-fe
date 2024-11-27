@@ -1,4 +1,5 @@
 const express = require('express');
+const upload = require('../middlewares/multer');
 const router = express.Router();
 const userController = require('../controllers/userController');
 
@@ -11,10 +12,11 @@ function isAuthenticated(req, res, next) {
 // USER
 router.get('/regist', userController.getRegistPage);
 
-router.post('/regist', userController.createUser);
+router.post('/regist', upload.single('profile'), userController.createUser);
 
 router.get('/login', userController.getLoginPage);
 router.post('/login', userController.login);
+router.get('/logout', isAuthenticated, userController.logout);
 
 router.get('/users', userController.fetchUsers);
 router.get(

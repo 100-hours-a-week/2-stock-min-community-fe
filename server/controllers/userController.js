@@ -35,6 +35,10 @@ exports.getCurrentUser = (req, res) => {
 exports.createUser = (req, res) => {
   const userData = req.body;
 
+  const profilePath = req.file ? `/uploads/${req.file.filename}` : null;
+
+  userData.profile = profilePath;
+
   userModel.addUser(userData, (error, results) => {
     if (error) {
       res.status(500).send('사용자 추가 실패');
@@ -70,19 +74,32 @@ exports.patchUser = (req, res) => {
 
 exports.login = (req, res) => {
   const { email, password } = req.body;
-  const userList = userModel.getUsers();
-  const user = userList.find(
-    (u) => u.email === email && u.password === password
-  );
-  if (user) {
+  userModel.getUsers((err, results) => {
+    if (err) {
+      res.status(500).send('사용자 데이터를 가져오는데 실패했습니다.');
+      return;
+    }
+    const user = results.find(
+      (element) => element.email === email && element.password === password
+    );
+
     req.session.user = { email: user.email, nickname: user.nickname };
-    console.log(req.session.user);
+
     res.cookie('loggedIn', true, { httpOnly: true });
     return res.status(200).send('Login successful');
-  }
-  res.status(401).send('Invalid email or password');
+  });
 };
-
+exports.logout = (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('세션 삭제 실패:', err);
+      return res.status(500).send('Error deleting session');
+    }
+    console.log('success delete');
+    res.clearCookie('connect.sid'); // 세션 쿠키 삭제
+    res.status(200).send('User successfully deleted');
+  });
+};
 exports.fetchUsers = (req, res) => {
   userModel.getUsers((err, results) => {
     if (err) {

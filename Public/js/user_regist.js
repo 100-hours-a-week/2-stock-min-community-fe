@@ -131,15 +131,18 @@ document
   .getElementById('register_form')
   .addEventListener('submit', async (event) => {
     event.preventDefault();
-    const userData = {
-      profile: inputs.profile.value,
-      email: inputs.email.value,
-      password: inputs.password.value,
-      nickname: inputs.nickname.value,
-    };
+    const formData = new FormData();
+    formData.append('profile', inputs.profile.files[0]);
+    formData.append('email', inputs.email.value);
+    formData.append('password', inputs.password.value);
+    formData.append('nickname', inputs.nickname.value);
 
     try {
-      const response = await axios.post('/api/v1/regist', userData);
+      const response = await axios.post('/api/v1/regist', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       alert('회원가입 성공');
     } catch (error) {
       console.error(error);

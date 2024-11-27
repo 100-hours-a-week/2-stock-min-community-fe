@@ -83,6 +83,14 @@ document.getElementById('profile_img').addEventListener('mouseenter', () => {
   document.getElementById('password_modify').addEventListener('click', () => {
     window.location.href = '/api/v1/user/password';
   });
+  document.getElementById('logout').addEventListener('click', async () => {
+    try {
+      const response = await axios.get('/api/v1/logout');
+      window.location.href = '/api/v1/login';
+    } catch (error) {
+      console.error('Error : ', error);
+    }
+  });
 });
 document.getElementById('profile_box').addEventListener('mouseleave', () => {
   document.getElementById('profile_menu').innerHTML = ``;
