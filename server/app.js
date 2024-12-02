@@ -12,7 +12,10 @@ const port = 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use(
+  '/uploads',
+  express.static(path.join(__dirname, 'middlewares', 'uploads'))
+);
 app.use(express.static(path.join(__dirname, '../Public')));
 
 app.use(

@@ -12,7 +12,11 @@ function isAuthenticated(req, res, next) {
 // USER
 router.get('/regist', userController.getRegistPage);
 
-router.post('/regist', upload.single('profile'), userController.createUser);
+router.post(
+  '/regist',
+  upload('profile').single('profile'),
+  userController.createUser
+);
 
 router.get('/login', userController.getLoginPage);
 router.post('/login', userController.login);

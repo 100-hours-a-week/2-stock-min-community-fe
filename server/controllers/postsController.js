@@ -23,33 +23,24 @@ exports.getModifyPage = (req, res) => {
 };
 
 exports.createPost = (req, res) => {
-  try {
-    const { title, content, postDate } = req.body;
-    const posts = postsModel.getPosts();
-    const newPostID =
-      posts.length > 0 ? Math.max(...posts.map((post) => post.postID)) + 1 : 1;
-    const postData = {
-      postID: newPostID,
-      title,
-      content,
-      like: 0,
-      comment: 0,
-      view: 0,
-      postDate,
-      autor: req.session.user.nickname,
-    };
-    console.log(postData);
-    postsModel.addPosts(postData);
-    res
-      .status(201)
-      .json({ message: 'Posts created successfully', data: postData });
-  } catch (error) {
-    console.error('Erorr in create user : ', error);
-    res.status(500).json({
-      message: 'Internal Server Error',
-      error: error.message,
-    });
-  }
+  const { title, content, postDate } = req.body;
+
+  const postData = {
+    title,
+    content,
+    like: 0,
+    comment: 0,
+    view: 0,
+    postDate,
+    autor: req.session.user.nickname,
+  };
+  console.log(postData);
+  postsModel.addPosts(postData, (err, results) => {
+    if (err) {
+      return res.status(500).send('Error Create Post');
+    }
+    res.status(200).send({ message: 'Post Add Success' });
+  });
 };
 exports.updatePost = (req, res) => {
   postsModel.updatePosts(req.body.postID, req.body.postData);
@@ -63,7 +54,9 @@ exports.createComment = (req, res) => {
 };
 
 exports.getPosts = (req, res) => {
-  const posts = postsModel.getPosts();
-
-  res.status(200).json(posts);
+  postsModel.getPosts((err, results) => {
+    if (err) return res.status(500).send('Error get Post Data');
+    console.log(results);
+    return res.status(200).send({ data: results });
+  });
 };

@@ -1,5 +1,8 @@
-const userModel = require('../models/userModel');
+const fs = require('fs');
 const path = require('path');
+
+const { profile } = require('console');
+const userModel = require('../models/userModel');
 
 // USER
 exports.getRegistPage = (req, res) => {
@@ -29,13 +32,14 @@ exports.getCurrentUser = (req, res) => {
   res.status(200).json({
     email: req.session.user.email,
     nickname: req.session.user.nickname,
+    profile: req.session.user.profile,
   });
 };
 
 exports.createUser = (req, res) => {
   const userData = req.body;
 
-  const profilePath = req.file ? `/uploads/${req.file.filename}` : null;
+  const profilePath = req.file ? `/uploads/profile/${req.file.filename}` : null;
 
   userData.profile = profilePath;
 
@@ -48,11 +52,25 @@ exports.createUser = (req, res) => {
   });
 };
 exports.deleteUser = (req, res) => {
-  const email = req.session.user.email;
-  const success = userModel.deleteUser(email);
-  if (success) {
-    // 세션 삭제 및 응답
+  const id = req.session.user.id;
+  const filePath = path.join(
+    __dirname,
+    '../middlewares',
+    req.session.user.profile
+  );
 
+  userModel.deleteUser(id, (error, results) => {
+    if (error) {
+      res.status(500).send('회원탈퇴 실패');
+      return;
+    }
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        console.error('파일 삭제 중 오류 발생', err);
+      } else {
+        console.log('파일 삭제 성공');
+      }
+    });
     req.session.destroy((err) => {
       if (err) {
         console.error('세션 삭제 실패:', err);
@@ -62,14 +80,24 @@ exports.deleteUser = (req, res) => {
       res.clearCookie('connect.sid'); // 세션 쿠키 삭제
       res.status(200).send('User successfully deleted');
     });
-  } else {
-    res.status(404).send('User not found');
-  }
+  });
 };
 exports.patchUser = (req, res) => {
+  console.log(req.body);
   const { data, field } = req.body;
-  const email = req.session.user.email;
-  userModel.patchUser(email, field, data);
+
+  const id = req.session.user.id;
+  const patchData = {
+    data,
+    field,
+    id,
+  };
+  userModel.patchUser(patchData, (err, results) => {
+    if (err) {
+      return res.status(500).send('Error Patch User');
+    }
+    res.status(200).send({ message: 'User Patch Success' });
+  });
 };
 
 exports.login = (req, res) => {
@@ -82,8 +110,16 @@ exports.login = (req, res) => {
     const user = results.find(
       (element) => element.email === email && element.password === password
     );
-
-    req.session.user = { email: user.email, nickname: user.nickname };
+    if (user) {
+      req.session.user = {
+        id: user.user_id,
+        email: user.email,
+        nickname: user.nickname,
+        profile: user.profile,
+      };
+    } else {
+      return;
+    }
 
     res.cookie('loggedIn', true, { httpOnly: true });
     return res.status(200).send('Login successful');

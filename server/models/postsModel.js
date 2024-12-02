@@ -1,43 +1,30 @@
 const fs = require('fs');
 const path = require('path');
+const connection = require('../db');
 
 // 파일 경로 설정
 const filePath = path.join(__dirname, '../data/posts.json');
 
-function getPosts() {
-  try {
-    const data = fs.readFileSync(filePath, 'utf8');
-    return JSON.parse(data);
-  } catch (error) {
-    console.error('Error reading posts file:', error);
-    return [];
-  }
+function getPosts(callback) {
+  const query = `SELECT * FROM POSTS`;
+  connection.query(query, (err, results) => {
+    if (err) return callback(err, null);
+    callback(null, results);
+  });
 }
 
-function addPosts(post) {
-  const posts = getPosts();
-
-  posts.push(post);
-  fs.writeFileSync(filePath, JSON.stringify(posts, null, 2), 'utf8');
+function addPosts(callback, post) {
+  const query = `INSERT INTO POSTS (title, content, like, comment, view, postDate, autor) VALUES (?,?,?,?,?,?,?)`;
+  connection.query(query, [], (err, results) => {
+    if (err) return callback(err, null);
+    callback(null, results);
+  });
 }
 
-function updatePosts(postID, data) {
-  const posts = getPosts();
-  posts[postID].title = data.title;
-  posts[postID].content = data.content;
-  fs.writeFileSync(filePath, JSON.stringify(posts, null, 2), 'utf8');
-}
-function deletePosts(postID) {
-  const posts = getPosts();
-  posts.splice(postID, 1);
-  fs.writeFileSync(filePath, JSON.stringify(posts, null, 2), 'utf8');
-}
+function updatePosts(postID, data) {}
+function deletePosts(postID) {}
 
-function addComment(postID, data) {
-  const posts = getPosts();
-  posts[postID].commentData = posts[postID].commentData || [];
-  posts[postID].commentData.push(data);
-  fs.writeFileSync(filePath, JSON.stringify(posts, null, 2), 'utf8');
-}
+function getComment(callback) {}
+function addComment(postID, data) {}
 
 module.exports = { getPosts, addPosts, deletePosts, addComment, updatePosts };

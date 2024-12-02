@@ -1,9 +1,4 @@
-const fs = require('fs');
-const path = require('path');
 const connection = require('../db');
-
-// 파일 경로 설정
-const filePath = path.join(__dirname, '../data/users.json');
 
 // 사용자 데이터 가져오기
 function getUsers(callback) {
@@ -41,18 +36,23 @@ function addUser(user, callback) {
     }
   );
 }
-function deleteUser(email) {
-  const users = getUsers();
-  const deleteIndex = users.findIndex((user) => user.email === email);
-  users.splice(deleteIndex, 1);
-  fs.writeFileSync(filePath, JSON.stringify(users, null, 2), 'utf8');
-  return true;
+function deleteUser(id, callback) {
+  const query = 'DELETE FROM USER WHERE user_id=?';
+  connection.query(query, id, (err, results) => {
+    if (err) {
+      return callback(err, null);
+    }
+    callback(null, results);
+  });
 }
-function patchUser(email, field, data) {
-  const users = getUsers();
-  const patchIndex = users.findIndex((user) => user.email === email);
-  users[patchIndex][field] = data;
-  fs.writeFileSync(filePath, JSON.stringify(users, null, 2), 'utf8');
+function patchUser(patchData, callback) {
+  const query = `UPDATE USER SET ${patchData.field} = '${patchData.data}' WHERE user_id = ${patchData.id}`;
+  connection.query(query, (err, results) => {
+    if (err) {
+      return callback(err, null);
+    }
+    callback(null, results);
+  });
 }
 
 module.exports = { getUsers, addUser, isEmailDuplicate, deleteUser, patchUser };
