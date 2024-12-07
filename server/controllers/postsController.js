@@ -1,3 +1,4 @@
+const fs = require('fs');
 const postsModel = require('../models/postsModel');
 const path = require('path');
 
@@ -26,6 +27,7 @@ exports.createPost = (req, res) => {
   const { title, content, postDate } = req.body;
 
   const postData = {
+    postImage: req.file ? `/uploads/postImage/${req.file.filename}` : '',
     title,
     content,
     like: 0,
@@ -33,30 +35,100 @@ exports.createPost = (req, res) => {
     view: 0,
     postDate,
     autor: req.session.user.nickname,
+    autorProfile: req.session.user.profile,
   };
-  console.log(postData);
+
   postsModel.addPosts(postData, (err, results) => {
     if (err) {
+      console.error('MySQL Error: ', err);
       return res.status(500).send('Error Create Post');
     }
     res.status(200).send({ message: 'Post Add Success' });
   });
 };
 exports.updatePost = (req, res) => {
-  postsModel.updatePosts(req.body.postID, req.body.postData);
+  //전에 있던 이미지 파일 삭제
+  const query = `SELECT postImage from POSTS WHERE post_id = ${req.body.postID}`;
+  postsModel.anyQuery(query, (err, results) => {
+    if (err) return res.status(500).send('Error get query');
+
+    const filePath = path.join(
+      __dirname,
+      '../middlewares',
+      results[0].postImage
+    );
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        console.error('파일 삭제중 오류 발생 : ', err);
+      } else {
+        console.log('파일삭제 성공');
+      }
+    });
+  });
+
+  //게시글 수정
+  const profilePath = req.file
+    ? `/uploads/postImage/${req.file.filename}`
+    : null;
+  req.body.postIMG = profilePath;
+  postsModel.updatePosts(req.body, (err, results) => {
+    if (err) return res.status(500).send('Error Update Post');
+    res.status(200).send({ message: 'Post Update Success' });
+  });
 };
 exports.deletePost = (req, res) => {
-  postsModel.deletePosts(req.body.index);
+  postsModel.deletePosts(req.params.postID, (err, results) => {
+    if (err) return res.status(500).send('Error Delete Post');
+    res.status(200).send({ message: 'Post Delete Success' });
+  });
+  postsModel.deletePostComment(req.params.postID, (err, results) => {
+    if (err) return res.status(500).send('Error Delete All Post`s Comment');
+  });
 };
-exports.createComment = (req, res) => {
-  req.body.info.commentAutor = req.session.user.nickname;
-  postsModel.addComment(req.body.postID, req.body.info);
-};
-
 exports.getPosts = (req, res) => {
   postsModel.getPosts((err, results) => {
     if (err) return res.status(500).send('Error get Post Data');
-    console.log(results);
     return res.status(200).send({ data: results });
+  });
+};
+
+// COMMENT
+exports.createComment = (req, res) => {
+  req.body.commentAutor = req.session.user.nickname;
+  req.body.commentProfile = req.session.user.profile;
+  postsModel.addComment(req.params.postID, req.body, (err, results) => {
+    if (err) return res.status(500).send('Error Add Comment');
+    return res.status(200).send({ message: 'Add Comment Success' });
+  });
+};
+exports.getComment = (req, res) => {
+  postsModel.getComment(req.params.postID, (err, results) => {
+    if (err) return res.status(500).send('Error Get Comment');
+    return res
+      .status(200)
+      .send({ message: 'Get Comment Success', data: results });
+  });
+};
+exports.deleteComment = (req, res) => {
+  postsModel.deleteComment(req.params.commentID, (err, results) => {
+    if (err) return res.status(500).send('Error Delete Comment');
+    return res.status(200).send({ message: 'Delete Success' });
+  });
+};
+exports.patchComment = (req, res) => {
+  postsModel.patchComment(
+    req.params.commentID,
+    req.body.data,
+    (err, results) => {
+      if (err) return res.status(500).send('Error Patch Comment');
+      return res.status(200).send({ message: 'patch Comment Success' });
+    }
+  );
+};
+
+exports.countComment = (req, res) => {
+  postsModel.countComment(req.params.postID, (err, results) => {
+    if (err) return res.status(500).send('Error Count Comment');
+    return res.status(200).send({ message: 'countSuccess', data: results });
   });
 };
