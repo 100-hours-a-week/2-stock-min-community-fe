@@ -31,8 +31,15 @@ router.delete('/:postID', isAuthenticated, postsController.deletePost);
 router.get('/new', isAuthenticated, postsController.getPostNewPage);
 router.get('/:postID', isAuthenticated, postsController.getPostDetail);
 
-//LCV
-router.get('/lcv/:postID', isAuthenticated, postsController.countComment);
+//Count
+router.get(
+  '/:postID/count/comment',
+  isAuthenticated,
+  postsController.countComment
+);
+router.get('/:postID/count/view', isAuthenticated, postsController.countView);
+router.get('/:postID/count/like', isAuthenticated, postsController.countLike);
+router.post('/:postID/count/like', isAuthenticated, postsController.addLike);
 
 // COMMENT
 router.get('/comment/:postID', isAuthenticated, postsController.getComment);

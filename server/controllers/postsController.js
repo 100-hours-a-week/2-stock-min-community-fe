@@ -126,9 +126,36 @@ exports.patchComment = (req, res) => {
   );
 };
 
+//Count
 exports.countComment = (req, res) => {
   postsModel.countComment(req.params.postID, (err, results) => {
     if (err) return res.status(500).send('Error Count Comment');
     return res.status(200).send({ message: 'countSuccess', data: results });
   });
+};
+exports.countView = async (req, res) => {
+  const postID = req.params.postID;
+  const userID = req.session.user.email;
+
+  try {
+    const addView = await postsModel.addView(postID, userID);
+    const getView = await postsModel.getViewCount(postID);
+    res.status(200).json(getView);
+  } catch (error) {
+    res.status(500).send('조회수 송출중 에러');
+  }
+};
+exports.addLike = async (req, res) => {
+  const postID = req.params.postID;
+  const userID = req.session.user.email;
+  const addLike = await postsModel.addLike(postID, userID);
+};
+exports.countLike = async (req, res) => {
+  const postID = req.params.postID;
+  try {
+    const getLike = await postsModel.getLikeCount(postID);
+    res.status(200).json(getLike);
+  } catch (error) {
+    res.status(500).send('좋아요 송출중 에러');
+  }
 };

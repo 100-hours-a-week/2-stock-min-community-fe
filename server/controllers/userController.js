@@ -82,7 +82,6 @@ exports.deleteUser = (req, res) => {
   });
 };
 exports.patchUser = (req, res) => {
-  console.log(req.body);
   const { data, field } = req.body;
 
   const id = req.session.user.id;

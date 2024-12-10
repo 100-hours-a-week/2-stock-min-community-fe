@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const connection = require('../db');
+const redisClient = require('../redis');
 
 // 파일 경로 설정
 const filePath = path.join(__dirname, '../data/posts.json');
@@ -116,6 +117,40 @@ function countComment(postID, callback) {
   });
 }
 
+async function addView(postID, userID) {
+  try {
+    const viewCount = await redisClient.sAdd(`post:${postID}:views`, userID);
+  } catch (error) {
+    console.error('Redis 조회수 증가 오류 : ', err);
+    throw err;
+  }
+}
+async function getViewCount(postID) {
+  try {
+    const viewCount = await redisClient.sCard(`post:${postID}:views`);
+    return viewCount;
+  } catch (error) {
+    console.error('Redis 조회수 가져오기 오류:', err);
+    throw err;
+  }
+}
+async function addLike(postID, userID) {
+  try {
+    const likeCount = await redisClient.sAdd(`post:${postID}:like`, userID);
+  } catch (error) {
+    console.error(`Redis 좋아요 등록 오류:`, err);
+    throw err;
+  }
+}
+async function getLikeCount(postID) {
+  try {
+    const likeCount = await redisClient.sCard(`post:${postID}:like`);
+
+    return likeCount;
+  } catch (error) {
+    console.error(`Redis 좋아요 가져오기 오류`);
+  }
+}
 module.exports = {
   getPosts,
   addPosts,
@@ -128,4 +163,8 @@ module.exports = {
   anyQuery,
   deletePostComment,
   countComment,
+  addView,
+  getViewCount,
+  addLike,
+  getLikeCount,
 };
