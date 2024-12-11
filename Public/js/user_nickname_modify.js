@@ -42,18 +42,15 @@ nickname.addEventListener('input', () => {
 
 modify_form.addEventListener('submit', async (event) => {
   event.preventDefault();
-  const nicknameValue = document.getElementById('nickname_update').value;
+  const nicknameValue = nickname.value;
   const patchList = {
     data: nicknameValue,
     field: 'nickname',
   };
   try {
-    setTimeout(() => modify_toast.classList.add('show'), 100);
-    setTimeout(() => {
-      modify_toast.classList.remove('show');
-      setTimeout(() => container.removeChild(toast), 300);
-    }, 3000);
     const response = await axios.patch('/api/v1/user', patchList);
+    setTimeout(() => modify_toast.classList.add('show'), 100);
+    setTimeout(() => modify_toast.classList.remove('show'), 3000);
   } catch (error) {
     console.error(error);
     alert('Error');

@@ -73,13 +73,8 @@
   border-radius: 1rem;
   background-color: #ffffff;
 }
-.comment_box {
-  display: flex;
-  flex-direction: column;
-  width: 30rem;
-}
 
-.comment_box textarea {
+.comment_ .comment_box textarea {
   border: none;
   outline: none;
   background: none;
@@ -100,6 +95,20 @@
   padding: 1rem;
 }
 
+.comment_list {
+  display: flex;
+  flex-direction: column;
+  width: 30rem;
+}
+.comment_ind {
+  display: flex;
+  flex-direction: column;
+}
+.comment_info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 .profile {
   display: flex;
   align-items: center;
@@ -110,12 +119,7 @@
 .profile h4 {
   margin-left: 1rem;
 }
-.comment_user p {
-  margin-left: 3rem;
-}
-.comment_date {
-  display: flex;
-}
+
 .comment_date p {
   margin: 1.3rem 3rem 0 0;
 }

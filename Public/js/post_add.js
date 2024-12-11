@@ -22,12 +22,16 @@ const validateRules = {
     if (!value) return '내용을 적어주세요';
   },
 };
-
+const backButton = document.getElementById('logo_back');
+backButton.addEventListener('click', () => {
+  window.location.href = '/api/v1/posts/list';
+});
 const isValid = {
   title: false,
   content: false,
 };
 const inputs = {
+  image: document.getElementById('fileInput'),
   title: document.getElementById('title'),
   content: document.getElementById('content'),
 };
@@ -61,14 +65,21 @@ document
   .getElementById('post_form')
   .addEventListener('submit', async (event) => {
     event.preventDefault();
+    const postData = new FormData();
 
-    const postData = {
-      title: inputs.title.value,
-      content: inputs.content.value,
-      postDate: getCurrentTime(),
-    };
+    postData.append('postImage', inputs.image.files[0]);
+    postData.append('title', inputs.title.value);
+    postData.append('content', inputs.content.value);
+    postData.append('postDate', getCurrentTime());
+
     try {
-      const response = await axios.post('/api/v1/posts', postData);
+      const response = await axios.post('/api/v1/posts', postData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      alert('게시글 등록 성공');
+      window.location.href = '/api/v1/posts/list';
     } catch (error) {
       console.error('데이터 전송 실패 : ', error);
     }

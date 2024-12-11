@@ -7,25 +7,21 @@ const postID = parseInt(currentLocation.split('/').pop());
 const postModifyButton = document.getElementById('modify');
 const postDeleteButton = document.getElementById('delete');
 
-const commentModifyButton = document.getElementById('comment_modify');
-const commentDeleteButton = document.getElementById('comment_delete');
+const backButton = document.getElementById('logo_back');
+
+backButton.addEventListener('click', () => {
+  window.location.href = `/api/v1/posts/list`;
+});
 
 //게시글 수정&삭제
 postModifyButton.addEventListener('click', () => {
   window.location.href = `/api/v1/posts/edit/${postID}`;
 });
 postDeleteButton.addEventListener('click', async () => {
-  const responseGetPosts = await axios.get('/api/v1/posts');
-  const index = responseGetPosts.data.findIndex(
-    (post) => postID === post.postID
-  );
-  const response = await axios.delete(`/api/v1/posts/${postID}`, index);
+  const response = await axios.delete(`/api/v1/posts/${postID}`);
+  window.location.href = '/api/v1/posts/list';
 });
 
-//댓글 수정&삭제
-// commentModifyButton.addEventListener('click', () => {
-//   document.getElementById();
-// });
 // commentDeleteButton.addEventListener('click', () => {});
 // comment;
 
@@ -44,11 +40,12 @@ function getCurrentTime() {
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
-// posts.JSON데이터 가져오기
+// 게시글 내용 출력문
 viewDetail();
 async function viewDetail() {
   const response = await axios.get('/api/v1/posts');
   const postInfo = {
+    postIMG: document.getElementById('post_img_content'),
     title: document.getElementById('title'),
     autor: document.getElementById('autor'),
     postDate: document.getElementById('post_date'),
@@ -56,38 +53,113 @@ async function viewDetail() {
     like: document.getElementById('like_count'),
     comment: document.getElementById('comment_count'),
     view: document.getElementById('view_count'),
+    profileImg: document.getElementById('profile_img_post'),
   };
 
+  const index = response.data.data.findIndex((post) => postID === post.post_id);
+  postInfo.profileImg.src = response.data.data[index].autorProfile;
+
+  postInfo.postIMG.classList.toggle(
+    'none',
+    !response.data.data[index].postImage
+  );
+  postInfo.postIMG.src = response.data.data[index].postImage;
+
+  postInfo.title.textContent = response.data.data[index].title;
+  postInfo.autor.textContent = response.data.data[index].autor;
+  postInfo.postDate.textContent = response.data.data[index].postDate;
+  postInfo.content.textContent = response.data.data[index].content;
+  postInfo.like.textContent = response.data.data[index].like;
+  postInfo.comment.textContent = response.data.data[index].comment;
+  postInfo.view.textContent = response.data.data[index].view;
+
+  // 게시글 LCV 출력
+  const like = document.getElementById('like_container');
+  const likeCount = document.getElementById('like_count');
+  const view = document.getElementById('view_count');
+  const comment = document.getElementById('comment_count');
+  const responseCommentCount = await axios.get(
+    `/api/v1/posts/${postID}/count/comment`
+  );
+  const responseViewCount = await axios.get(
+    `/api/v1/posts/${postID}/count/view`
+  );
+
+  like.addEventListener('click', async () => {
+    const responseLikeAdd = await axios.post(
+      `/api/v1/posts/${postID}/count/like`
+    );
+    const responseLikeCount = await axios.get(
+      `/api/v1/posts/${postID}/count/like`
+    );
+    likeCount.innerText = responseLikeCount.data;
+  });
+
+  const responseLikeCount = await axios.get(
+    `/api/v1/posts/${postID}/count/like`
+  );
+  likeCount.innerText = responseLikeCount.data;
+  view.innerText = responseViewCount.data;
+  comment.innerText = responseCommentCount.data.data[0]['COUNT(content)'];
+
+  //게시글 댓글 출력문
   const commentContainer = document.getElementById('comment_box');
-  const index = response.data.findIndex((post) => postID === post.postID);
+  const responseComment = await axios.get(`/api/v1/posts/comment/${postID}`);
 
-  postInfo.title.textContent = response.data[index].title;
-  postInfo.autor.textContent = response.data[index].autor;
-  postInfo.postDate.textContent = response.data[index].postDate;
-  postInfo.content.textContent = response.data[index].content;
-  postInfo.like.textContent = response.data[index].like;
-  postInfo.comment.textContent = response.data[index].comment;
-  postInfo.view.textContent = response.data[index].view;
-
-  if (response.data[index].commentData) {
-    response.data[index].commentData.map((comment) => {
-      const commentView = `<div class="comment_user">
+  responseComment.data.data.map((comment) => {
+    const commentView = `
+    <div class="comment_ind">
+        <div class="comment_info">
           <div class="profile">
-            <img src="/images/icon/profile_img.webp" class="profile_img" />
-            <h4 id="comment_autor">${comment.commentAutor}</h4>
+            <img src="${comment.profile}" class="profile_img" />
+            <h4 id="comment_autor">${comment.autor}</h4>
           </div>
-          <p id="comment_content">${comment.comment}</p>
+          <div class="comment_date">
+            <p id="comment_date">${comment.date}</p>
+          </div>
+          <div class="modify_delete">
+            <button class="comment_modify" data-id=${comment.comment_id}>수정</button>
+            <button class="comment_delete" data-id=${comment.comment_id}>삭제</button>
+          </div>
         </div>
-        <div class="comment_date">
-          <p id="comment_date">${comment.commentDate}</p>
-        </div>
-        <div class="modify_delete">
-          <button id="comment_modify">수정</button>
-          <button id="comment_delete">삭제</button>
-        </div>`;
-      commentContainer.innerHTML += commentView;
+        <p id="comment_content${comment.comment_id}">${comment.content}</p>
+    </div>`;
+    commentContainer.innerHTML += commentView;
+  });
+
+  //댓글 수정
+  document.querySelectorAll('.comment_modify').forEach((button) => {
+    button.addEventListener('click', (event) => {
+      const commit = document.createElement('button');
+      commit.innerHTML = '확인';
+      event.target.replaceWith(commit);
+
+      const content = document.getElementById(
+        `comment_content${event.target.dataset.id}`
+      );
+      const input = document.createElement('input');
+      input.value = content.innerText;
+      content.replaceWith(input);
+
+      commit.addEventListener('click', async () => {
+        const response = await axios.patch(
+          `/api/v1/posts/comment/${event.target.dataset.id}`,
+          { data: input.value }
+        );
+        window.location.reload();
+      });
     });
-  }
+  });
+
+  //댓글 삭제
+  document.querySelectorAll('.comment_delete').forEach((button) => {
+    button.addEventListener('click', async (event) => {
+      const response = await axios.delete(
+        `/api/v1/posts/comment/${event.target.dataset.id}`
+      );
+      window.location.reload();
+    });
+  });
 }
 
 comment.addEventListener('input', () => {
@@ -100,18 +172,16 @@ comment.addEventListener('input', () => {
   }
 });
 
-writeForm.addEventListener('submit', async () => {
-  const responseGetPosts = await axios.get('/api/v1/posts');
-  const index = responseGetPosts.data.findIndex(
-    (post) => postID === post.postID
-  );
+writeForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
   const commentData = {
-    postID: index,
-    info: {
-      comment: comment.value,
-      commentDate: getCurrentTime(),
-      commentAutor: '',
-    },
+    comment: comment.value,
+    commentDate: getCurrentTime(),
+    commentAutor: '',
   };
-  const response = await axios.post('/api/v1/posts/comment', commentData);
+  const response = await axios.post(
+    `/api/v1/posts/comment/${postID}`,
+    commentData
+  );
+  window.location.reload();
 });

@@ -36,8 +36,7 @@ const logo_no_back = `<div class="logo_container">
         <p class="logo_title">아무말 대잔치</p>
       </div>
       <div class="profile_box" id="profile_box">
-        <img src="
-          /images/icon/profile_img.webp" alt="" id="profile_img"/>
+        <img src="/images/profile_img.webp" alt="" id="profile_img"/>
         <div class="profile_menu" id="profile_menu">
           
         </div>
@@ -51,7 +50,7 @@ const logo_all = `<div class="logo_container">
         <p class="logo_title">아무말 대잔치</p>
       </div>
       <div class="profile_box" id="profile_box">
-        <img src="/images/icon/profile_img.webp" alt="" id="profile_img"/>
+        <img src="/images/profile_img.webp" alt="" id="profile_img"/>
         <div class="profile_menu" id="profile_menu">
           
         </div>
@@ -59,17 +58,20 @@ const logo_all = `<div class="logo_container">
     </div>`;
 const url = window.location.pathname;
 
-const has_back = ['post_detail.html', 'post_modify.html', 'post_add.html'];
-const no_back = ['user_password_modify.html', 'user_nickname_modify.html'];
+const logo_default = ['/login'];
+const logo_has_back = ['/regist'];
+const logo_has_profile = ['/posts/list', '/user/nickname', '/user/password'];
+const logo_has_full = ['/posts/edit', '/posts/new', '/posts'];
 
-if (url.includes('user_login.html')) {
+if (logo_default.some((pattern) => url.includes(pattern))) {
   logo.innerHTML = logo_basic;
-} else if (url.includes('user_regist.html')) {
+} else if (logo_has_back.some((pattern) => url.includes(pattern))) {
   logo.innerHTML = logo_no_profile;
-} else if (no_back.some((path) => url.includes(path))) {
+} else if (logo_has_profile.some((pattern) => url.includes(pattern))) {
   logo.innerHTML = logo_no_back;
 } else {
   logo.innerHTML = logo_all;
+  console.log(document.getElementById('profile_img').src);
 }
 document.getElementById('profile_img').addEventListener('mouseenter', () => {
   document.getElementById('profile_menu').innerHTML = `<ul id="menu">
@@ -94,4 +96,15 @@ document.getElementById('profile_img').addEventListener('mouseenter', () => {
 });
 document.getElementById('profile_box').addEventListener('mouseleave', () => {
   document.getElementById('profile_menu').innerHTML = ``;
+});
+
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    const response = await axios.get('/api/v1/user');
+    const profile_img = document.getElementById('profile_img');
+
+    profile_img.src = response.data.profile;
+  } catch (error) {
+    console.error('Error : ', error);
+  }
 });

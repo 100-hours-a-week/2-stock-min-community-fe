@@ -9,8 +9,8 @@ async function uploadPost() {
   try {
     const response = await axios.get('/api/v1/posts');
 
-    response.data.map((post) => {
-      const postView = `<li class="user_post" id="${post.postID}">
+    response.data.data.map((post) => {
+      const postView = `<li class="user_post" id="${post.post_id}">
             <div class="title_area">
               <h2>${post.title}</h2>
               <div class="post_info">
@@ -23,7 +23,7 @@ async function uploadPost() {
             </div>
             <div class="profile_area">
               <img
-                src="/images/icon/profile_img.webp"
+                src="${post.autorProfile}"
                 alt="profile"
                 class="profile_img"
               />
@@ -41,6 +41,7 @@ uploadPost();
 
 function addLiEvent() {
   const listItems = document.querySelectorAll('#post_list li');
+
   listItems.forEach((item) => {
     item.addEventListener('click', () => {
       window.location.href = `/api/v1/posts/${item.id}`;
