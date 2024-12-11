@@ -20,5 +20,8 @@
     "mysql2": "^3.11.4",
     "redis": "^4.7.0"
   },
-  "keywords": []
+  "keywords": [],
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
 }
