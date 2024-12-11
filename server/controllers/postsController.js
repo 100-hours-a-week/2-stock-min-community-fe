@@ -138,6 +138,7 @@ exports.countView = async (req, res) => {
   const userID = req.session.user.email;
 
   try {
+    console.log('dasda');
     const addView = await postsModel.addView(postID, userID);
     const getView = await postsModel.getViewCount(postID);
     res.status(200).json(getView);
