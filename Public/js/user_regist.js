@@ -104,6 +104,16 @@ async function validateField(field, value, additionalValue = null) {
 
 // 이벤트 리스너 추가
 inputs.profile.addEventListener('change', () => {
+  //이미지 미리보기
+  const file = inputs.profile.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const preview = document.getElementById('profile_preview');
+      preview.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
   validateField('profile', inputs.profile.value);
 });
 inputs.email.addEventListener('input', () => {

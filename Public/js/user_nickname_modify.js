@@ -2,6 +2,7 @@ const modify_button = document.getElementById('modify_button');
 const modify_toast = document.getElementById('modify_toast');
 const user_delete = document.getElementById('user_delete');
 const email = document.getElementById('email');
+const profile = document.getElementById('profile_image');
 
 const helper_nickname = document.getElementById('helper_text');
 const nickname = document.getElementById('nickname_update');
@@ -13,6 +14,7 @@ async function getCurrentUser() {
     if (response.status === 200) {
       const userData = response.data;
       email.textContent = userData.email;
+      profile_image.src = userData.profile;
     }
   } catch (error) {
     console.error('사용자 정보 불러올 수 없음 : ', error);

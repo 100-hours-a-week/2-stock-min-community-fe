@@ -22,10 +22,11 @@ function getPosts(callback) {
 }
 
 function addPosts(post, callback) {
-  const query = `INSERT INTO POSTS (postImage, title, content, \`like\`, comment, view, postDate, autor,autorProfile) VALUES (?,?,?,?,?,?,?,?,?)`;
+  const query = `INSERT INTO POSTS (user_id,postImage, title, content, \`like\`, comment, view, postDate, autor,autorProfile) VALUES (?,?,?,?,?,?,?,?,?,?)`;
   connection.query(
     query,
     [
+      post.userID,
       post.postImage,
       post.title,
       post.content,
@@ -61,11 +62,12 @@ function deletePosts(postID, callback) {
 }
 
 function addComment(postID, data, callback) {
-  const query = `INSERT INTO COMMENT (post_id,profile,content,date,autor) VALUES (?,?,?,?,?)`;
+  const query = `INSERT INTO COMMENT (post_id,user_id,profile,content,date,autor) VALUES (?,?,?,?,?,?)`;
   connection.query(
     query,
     [
       postID,
+      data.userID,
       data.commentProfile,
       data.comment,
       data.commentDate,
@@ -109,6 +111,7 @@ function deletePostComment(postID, callback) {
   });
 }
 
+//LCV
 function countComment(postID, callback) {
   const query = `SELECT COUNT(content) FROM COMMENT WHERE post_id = ${postID}`;
   connection.query(query, (err, results) => {
@@ -128,6 +131,7 @@ async function addView(postID, userID) {
 async function getViewCount(postID) {
   try {
     const viewCount = await redisClient.sCard(`post:${postID}:views`);
+    const query = `UPDATE POSTS SET view = '${viewCount}' WHERE postID = ${postID}`;
     return viewCount;
   } catch (error) {
     console.error('Redis 조회수 가져오기 오류:', err);
@@ -145,6 +149,7 @@ async function addLike(postID, userID) {
 async function getLikeCount(postID) {
   try {
     const likeCount = await redisClient.sCard(`post:${postID}:like`);
+    const query = `UPDATE POSTS SET like = '${likeCount}' WHERE postID = ${postID}`;
 
     return likeCount;
   } catch (error) {

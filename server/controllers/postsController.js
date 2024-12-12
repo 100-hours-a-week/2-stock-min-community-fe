@@ -28,6 +28,7 @@ exports.createPost = (req, res) => {
 
   const postData = {
     postImage: req.file ? `/uploads/postImage/${req.file.filename}` : '',
+    userID: req.session.user.id,
     title,
     content,
     like: 0,
@@ -94,6 +95,7 @@ exports.getPosts = (req, res) => {
 
 // COMMENT
 exports.createComment = (req, res) => {
+  req.body.userID = req.session.user.id;
   req.body.commentAutor = req.session.user.nickname;
   req.body.commentProfile = req.session.user.profile;
   postsModel.addComment(req.params.postID, req.body, (err, results) => {
@@ -138,7 +140,6 @@ exports.countView = async (req, res) => {
   const userID = req.session.user.email;
 
   try {
-    console.log('dasda');
     const addView = await postsModel.addView(postID, userID);
     const getView = await postsModel.getViewCount(postID);
     res.status(200).json(getView);

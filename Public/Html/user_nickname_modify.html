@@ -11,7 +11,7 @@
   <body>
     <header id="logo"></header>
     <div class="box">
-      <form class="page_modify" id="modify_form">
+      <form class="page_modify" id="modify_form" enctype="multipart/form-data">
         <div class="title_box">
           <h2>회원 정보 수정</h2>
         </div>
@@ -19,8 +19,12 @@
           <article class="profile">
             <h4>프로필 사진*</h4>
             <div class="profile_img_container">
-              <img src="/images/icon/profile_img.webp" class="profile_image" />
-              <button id="image_modify">변경</button>
+              <img
+                src="/images/profile_img.webp"
+                class="profile_image"
+                id="profile_image"
+              />
+              <button type="button" id="image_modify">변경</button>
             </div>
           </article>
           <article>

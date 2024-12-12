@@ -59,6 +59,7 @@ async function viewDetail() {
   const index = response.data.data.findIndex((post) => postID === post.post_id);
   postInfo.profileImg.src = response.data.data[index].autorProfile;
 
+  //게시글 이미지 추가 안했을땐 가리기
   postInfo.postIMG.classList.toggle(
     'none',
     !response.data.data[index].postImage
@@ -92,6 +93,7 @@ async function viewDetail() {
     const responseLikeCount = await axios.get(
       `/api/v1/posts/${postID}/count/like`
     );
+    console.log(responseLikeCount.data);
     likeCount.innerText = responseLikeCount.data;
   });
 

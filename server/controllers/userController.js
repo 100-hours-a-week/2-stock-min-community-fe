@@ -95,12 +95,6 @@ exports.patchUser = (req, res) => {
       return res.status(500).send('Error Patch User');
     }
     res.status(200).send({ message: 'User Patch Success' });
-    req.session.user = {
-      id: user.user_id,
-      email: user.email,
-      nickname: user.nickname,
-      profile: user.profile,
-    };
   });
 };
 
