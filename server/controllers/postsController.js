@@ -28,7 +28,7 @@ exports.createPost = (req, res) => {
 
   const postData = {
     postImage: req.file ? `/uploads/postImage/${req.file.filename}` : '',
-    userID: req.session.user.id,
+    userID: 0,
     title,
     content,
     like: 0,

@@ -8,15 +8,15 @@ async function uploadPost() {
   const postContainer = document.getElementById('post_list');
   try {
     const response = await axios.get('/api/v1/posts');
-    const responseCommentCount = await axios.get(
-      `/api/v1/posts/${postID}/count/comment`
-    );
-    const responseViewCount = await axios.get(
-      `/api/v1/posts/${postID}/count/view`
-    );
-    const responseLikeCount = await axios.get(
-      `/api/v1/posts/${postID}/count/like`
-    );
+    // const responseCommentCount = await axios.get(
+    //   `/api/v1/posts/${postID}/count/comment`
+    // );
+    // const responseViewCount = await axios.get(
+    //   `/api/v1/posts/${postID}/count/view`
+    // );
+    // const responseLikeCount = await axios.get(
+    //   `/api/v1/posts/${postID}/count/like`
+    // );
 
     response.data.data.map((post) => {
       const postView = `<li class="user_post" id="${post.post_id}">

@@ -75,34 +75,34 @@ async function viewDetail() {
   postInfo.view.textContent = response.data.data[index].view;
 
   // 게시글 LCV 출력
-  const like = document.getElementById('like_container');
-  const likeCount = document.getElementById('like_count');
-  const view = document.getElementById('view_count');
-  const comment = document.getElementById('comment_count');
-  const responseCommentCount = await axios.get(
-    `/api/v1/posts/${postID}/count/comment`
-  );
-  const responseViewCount = await axios.get(
-    `/api/v1/posts/${postID}/count/view`
-  );
+  // const like = document.getElementById('like_container');
+  // const likeCount = document.getElementById('like_count');
+  // const view = document.getElementById('view_count');
+  // const comment = document.getElementById('comment_count');
+  // const responseCommentCount = await axios.get(
+  //   `/api/v1/posts/${postID}/count/comment`
+  // );
+  // const responseViewCount = await axios.get(
+  //   `/api/v1/posts/${postID}/count/view`
+  // );
 
-  like.addEventListener('click', async () => {
-    const responseLikeAdd = await axios.post(
-      `/api/v1/posts/${postID}/count/like`
-    );
-    const responseLikeCount = await axios.get(
-      `/api/v1/posts/${postID}/count/like`
-    );
-    console.log(responseLikeCount.data);
-    likeCount.innerText = responseLikeCount.data;
-  });
+  // like.addEventListener('click', async () => {
+  //   const responseLikeAdd = await axios.post(
+  //     `/api/v1/posts/${postID}/count/like`
+  //   );
+  //   const responseLikeCount = await axios.get(
+  //     `/api/v1/posts/${postID}/count/like`
+  //   );
+  //   console.log(responseLikeCount.data);
+  //   likeCount.innerText = responseLikeCount.data;
+  // });
 
-  const responseLikeCount = await axios.get(
-    `/api/v1/posts/${postID}/count/like`
-  );
-  likeCount.innerText = responseLikeCount.data;
-  view.innerText = responseViewCount.data;
-  comment.innerText = responseCommentCount.data.data[0]['COUNT(content)'];
+  // const responseLikeCount = await axios.get(
+  //   `/api/v1/posts/${postID}/count/like`
+  // );
+  // likeCount.innerText = responseLikeCount.data;
+  // view.innerText = responseViewCount.data;
+  // comment.innerText = responseCommentCount.data.data[0]['COUNT(content)'];
 
   //게시글 댓글 출력문
   const commentContainer = document.getElementById('comment_box');

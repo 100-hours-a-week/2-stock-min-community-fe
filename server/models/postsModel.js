@@ -1,7 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 const connection = require('../db');
-const redisClient = require('../redis');
 
 // 파일 경로 설정
 const filePath = path.join(__dirname, '../data/posts.json');
@@ -22,11 +21,10 @@ function getPosts(callback) {
 }
 
 function addPosts(post, callback) {
-  const query = `INSERT INTO POSTS (user_id,postImage, title, content, \`like\`, comment, view, postDate, autor,autorProfile) VALUES (?,?,?,?,?,?,?,?,?,?)`;
+  const query = `INSERT INTO POSTS (postImage, title, content, \`like\`, comment, view, postDate, autor,autorProfile) VALUES (?,?,?,?,?,?,?,?,?)`;
   connection.query(
     query,
     [
-      post.userID,
       post.postImage,
       post.title,
       post.content,
@@ -120,42 +118,6 @@ function countComment(postID, callback) {
   });
 }
 
-async function addView(postID, userID) {
-  try {
-    const viewCount = await redisClient.sAdd(`post:${postID}:views`, userID);
-  } catch (error) {
-    console.error('Redis 조회수 증가 오류 : ', err);
-    throw err;
-  }
-}
-async function getViewCount(postID) {
-  try {
-    const viewCount = await redisClient.sCard(`post:${postID}:views`);
-    const query = `UPDATE POSTS SET view = '${viewCount}' WHERE postID = ${postID}`;
-    return viewCount;
-  } catch (error) {
-    console.error('Redis 조회수 가져오기 오류:', err);
-    throw err;
-  }
-}
-async function addLike(postID, userID) {
-  try {
-    const likeCount = await redisClient.sAdd(`post:${postID}:like`, userID);
-  } catch (error) {
-    console.error(`Redis 좋아요 등록 오류:`, err);
-    throw err;
-  }
-}
-async function getLikeCount(postID) {
-  try {
-    const likeCount = await redisClient.sCard(`post:${postID}:like`);
-    const query = `UPDATE POSTS SET like = '${likeCount}' WHERE postID = ${postID}`;
-
-    return likeCount;
-  } catch (error) {
-    console.error(`Redis 좋아요 가져오기 오류`);
-  }
-}
 module.exports = {
   getPosts,
   addPosts,
@@ -168,8 +130,4 @@ module.exports = {
   anyQuery,
   deletePostComment,
   countComment,
-  addView,
-  getViewCount,
-  addLike,
-  getLikeCount,
 };
