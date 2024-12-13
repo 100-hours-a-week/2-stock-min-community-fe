@@ -10,7 +10,7 @@ let isEmailValid = false;
 let isPasswordValid = false;
 
 regist.addEventListener('click', () => {
-  window.location.href = '/api/v1/regist';
+  window.location.href = '/Html/user_regist.html';
 });
 
 function validate() {
