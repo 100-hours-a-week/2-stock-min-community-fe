@@ -12,22 +12,23 @@ back.addEventListener('click', () => {
 });
 const validationRules = {
   profile: (value) => {
-    if (!value) return '프로필 사진을 넣어주세요';
+    if (!value) return '* 프로필 사진을 넣어주세요';
     return '';
   },
   email: async (value) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!value) return '이메일을 입력하세요.';
-    if (!emailRegex.test(value)) return '유효하지 않은 이메일 형식입니다.';
-    if (value.length < 5) return '이메일이 너무 짧습니다.';
+    if (!value) return '* 이메일을 입력하세요.';
+    if (!emailRegex.test(value)) return '* 유효하지 않은 이메일 형식입니다.';
+    if (value.length < 5) return '* 이메일이 너무 짧습니다.';
 
     // 서버로 이메일 중복 확인 요청
 
-    const response = await axios.post('/api/v1/check-email', {
-      email: value,
+    const response = await axios.post('/api/v1/check-duplicated', {
+      data: value,
+      field: 'email',
     });
     if (response.data.duplicated) {
-      return '이미 사용 중인 이메일입니다.';
+      return '* 이미 사용 중인 이메일입니다.';
     }
 
     return ''; // 유효하면 빈 문자열 반환
@@ -35,19 +36,29 @@ const validationRules = {
   password: (value) => {
     const passwordRegex =
       /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/;
-    if (!value) return '비밀번호를 입력하세요.';
+    if (!value) return '* 비밀번호를 입력하세요.';
     if (!passwordRegex.test(value))
-      return '비밀번호는 8자 이상, 대소문자, 숫자, 특수문자를 포함해야 합니다.';
+      return '* 비밀번호는 8자 이상, 대소문자, 숫자, 특수문자를 포함해야 합니다.';
     return '';
   },
   passwordCheck: (value, passwordValue) => {
-    if (value !== passwordValue) return '비밀번호가 일치하지 않습니다.';
+    if (!value) return '* 비밀번호를 다시 입력해주세요';
+    if (value !== passwordValue) return '* 비밀번호가 일치하지 않습니다.';
     return '';
   },
-  nickname: (value) => {
-    if (!value) return '닉네임을 입력하세요.';
-    if (value.length < 2) return '닉네임이 너무 짧습니다.';
-    if (/\s/.test(value)) return '닉네임에 공백을 포함할 수 없습니다.';
+  nickname: async (value) => {
+    if (!value) return '* 닉네임을 입력하세요.';
+    if (value.length > 10) return '* 닉네임은 최대 10자까지 적을 수 있습니다';
+    if (/\s/.test(value)) return '* 닉네임에 공백을 포함할 수 없습니다.';
+
+    //닉네임 중복 확인 요청
+    const response = await axios.post('/api/v1/check-duplicated', {
+      data: value,
+      field: 'nickname',
+    });
+    if (response.data.duplicated) {
+      return '* 이미 사용 중인 닉네임입니다.';
+    }
     return '';
   },
 };
@@ -154,6 +165,7 @@ document
         },
       });
       alert('회원가입 성공');
+      window.location.href = '/api/v1/login';
     } catch (error) {
       console.error(error);
       alert('회원가입 중 오류가 발생했습니다.');

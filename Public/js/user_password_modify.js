@@ -8,6 +8,7 @@ const validationRules = {
     return '';
   },
   passwordCheck: (value, passwordValue) => {
+    if (!value) return '비밀번호를 다시 입력해주세요';
     if (value !== passwordValue) return '비밀번호가 일치하지 않습니다.';
     return '';
   },
@@ -29,8 +30,7 @@ const isValid = {
 function validateField(field, value, additionalValue = null) {
   const submit_button = document.getElementById('submit_button');
   const errorMessage = validationRules[field](value, additionalValue);
-  console.log(field);
-  console.log(helperTexts[field]);
+
   if (!errorMessage) {
     isValid[field] = true;
   } else {

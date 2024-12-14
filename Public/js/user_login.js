@@ -10,7 +10,7 @@ let isEmailValid = false;
 let isPasswordValid = false;
 
 regist.addEventListener('click', () => {
-  window.location.href = '/Html/user_regist.html';
+  window.location.href = '/api/v1/regist';
 });
 
 function validate() {
@@ -35,6 +35,8 @@ function validate() {
     helperText.classList.add('hidden');
     isEmailValid = true;
   }
+  const passwordRegex =
+    /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/;
 
   if (passwordValue.length > 7) {
     isPasswordValid = true;

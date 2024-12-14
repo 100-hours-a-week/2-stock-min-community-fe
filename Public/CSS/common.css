@@ -48,6 +48,8 @@ textarea {
 }
 
 .helper_text {
+  width: 250px;
+  height: 20px;
   color: red;
 }
 .profile_img {

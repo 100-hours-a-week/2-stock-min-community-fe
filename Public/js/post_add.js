@@ -12,7 +12,7 @@ function getCurrentTime() {
   // 원하는 형식으로 조합
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
-
+const submitButton = document.getElementById('submit_button');
 const validateRules = {
   title: (value) => {
     if (!value) return '제목을 입력해주세요';
@@ -38,7 +38,6 @@ const inputs = {
 const helper_text = document.getElementById('helper_post');
 
 function validateField(field, value) {
-  const submitButton = document.getElementById('submit_button');
   const errorMessage = validateRules[field](value);
   if (!errorMessage) {
     isValid[field] = true;
@@ -60,6 +59,12 @@ inputs.title.addEventListener('input', () => {
 });
 inputs.content.addEventListener('input', () => {
   validateField('content', inputs.content.value);
+});
+submitButton.addEventListener('click', () => {
+  if (!isValid.title && !isValid.content) {
+    helper_text.innerText = '* 제목, 내용을 모두 작성해주세요';
+    helper_text.classList.remove('hidden');
+  }
 });
 document
   .getElementById('post_form')

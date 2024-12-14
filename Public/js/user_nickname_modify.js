@@ -25,18 +25,22 @@ getCurrentUser();
 nickname.addEventListener('input', () => {
   const nickname_value = nickname.value;
   if (!nickname_value) {
-    helper_nickname.textContent = '닉네임을 입력하세요.';
+    helper_nickname.classList.remove('hidden');
+    helper_nickname.textContent = '* 닉네임을 입력하세요.';
     modify_button.setAttribute('type', 'button');
     modify_button.style.backgroundColor = '#aca0eb';
-  } else if (nickname_value.length < 2) {
-    helper_nickname.textContent = '닉네임이 너무 짧습니다.';
+  } else if (nickname_value.length > 10) {
+    helper_nickname.classList.remove('hidden');
+    helper_nickname.textContent = '* 닉네임은 10자 내로 적어주세요';
     modify_button.setAttribute('type', 'button');
     modify_button.style.backgroundColor = '#aca0eb';
   } else if (/\s/.test(nickname_value)) {
-    helper_nickname.textContent = '닉네임에 공백을 포함할 수 없습니다.';
+    helper_nickname.classList.remove('hidden');
+    helper_nickname.textContent = '* 닉네임에 공백을 포함할 수 없습니다.';
     modify_button.setAttribute('type', 'button');
     modify_button.style.backgroundColor = '#aca0eb';
   } else {
+    helper_nickname.classList.add('hidden');
     modify_button.setAttribute('type', 'submit');
     modify_button.style.backgroundColor = '#7F6AEE';
   }
