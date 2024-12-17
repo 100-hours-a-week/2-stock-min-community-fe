@@ -18,8 +18,11 @@ postModifyButton.addEventListener('click', () => {
   window.location.href = `/api/v1/posts/edit/${postID}`;
 });
 postDeleteButton.addEventListener('click', async () => {
-  const response = await axios.delete(`/api/v1/posts/${postID}`);
-  window.location.href = '/api/v1/posts/list';
+  const checkBtn = document.getElementById('check_btn');
+  checkBtn.addEventListener('click', async () => {
+    const response = await axios.delete(`/api/v1/posts/${postID}`);
+    window.location.href = '/api/v1/posts/list';
+  });
 });
 
 // commentDeleteButton.addEventListener('click', () => {});
@@ -75,34 +78,52 @@ async function viewDetail() {
   postInfo.view.textContent = response.data.data[index].view;
 
   // 게시글 LCV 출력
-  // const like = document.getElementById('like_container');
-  // const likeCount = document.getElementById('like_count');
-  // const view = document.getElementById('view_count');
-  // const comment = document.getElementById('comment_count');
-  // const responseCommentCount = await axios.get(
-  //   `/api/v1/posts/${postID}/count/comment`
-  // );
-  // const responseViewCount = await axios.get(
-  //   `/api/v1/posts/${postID}/count/view`
-  // );
+  const like = document.getElementById('like_container');
+  const likeCount = document.getElementById('like_count');
+  const view = document.getElementById('view_count');
+  const comment = document.getElementById('comment_count');
+  const responseCommentCount = await axios.get(
+    `/api/v1/posts/${postID}/count/comment`
+  );
+  const responseViewCount = await axios.get(
+    `/api/v1/posts/${postID}/count/view`
+  );
+  const responseLikeCount = await axios.get(
+    `/api/v1/posts/${postID}/count/like`
+  );
 
-  // like.addEventListener('click', async () => {
-  //   const responseLikeAdd = await axios.post(
-  //     `/api/v1/posts/${postID}/count/like`
-  //   );
-  //   const responseLikeCount = await axios.get(
-  //     `/api/v1/posts/${postID}/count/like`
-  //   );
-  //   console.log(responseLikeCount.data);
-  //   likeCount.innerText = responseLikeCount.data;
-  // });
+  const responseCheckLike = await axios.get(
+    `/api/v1/posts/${postID}/check/like`
+  );
+  like.classList.toggle('likePushed', responseCheckLike.data.data[0].cnt > 0);
 
-  // const responseLikeCount = await axios.get(
-  //   `/api/v1/posts/${postID}/count/like`
-  // );
-  // likeCount.innerText = responseLikeCount.data;
-  // view.innerText = responseViewCount.data;
-  // comment.innerText = responseCommentCount.data.data[0]['COUNT(content)'];
+  //좋아요 버튼 클릭 시
+  like.addEventListener('click', async () => {
+    const responseCheckLike = await axios.get(
+      `/api/v1/posts/${postID}/check/like`
+    );
+    like.classList.toggle(
+      'likePushed',
+      responseCheckLike.data.data[0].cnt === 0
+    );
+
+    if (responseCheckLike.data.data[0].cnt === 0) {
+      const responseAddLike = await axios.post(
+        `/api/v1/posts/${postID}/count/like`
+      );
+      likeCount.innerText = responseAddLike.data.data[0].cnt;
+    } else {
+      const responseDeleteLike = await axios.delete(
+        `/api/v1/posts/${postID}/count/like`
+      );
+      likeCount.innerText = responseDeleteLike.data.data[0].cnt;
+    }
+  });
+
+  //좋아요, 댓글 수, 조회수 출력
+  likeCount.innerText = responseLikeCount.data.data[0].cnt;
+  view.innerText = responseViewCount.data.data[0].cnt;
+  comment.innerText = responseCommentCount.data.data[0]['COUNT(content)'];
 
   //게시글 댓글 출력문
   const commentContainer = document.getElementById('comment_box');
@@ -121,7 +142,7 @@ async function viewDetail() {
           </div>
           <div class="modify_delete">
             <button class="comment_modify" data-id=${comment.comment_id}>수정</button>
-            <button class="comment_delete" data-id=${comment.comment_id}>삭제</button>
+            <button class="comment_delete" data-id=${comment.comment_id} onclick="createModal('댓글을 삭제하시겠습니까?','삭제한 내용은 복구할 수 없습니다')">삭제</button>
           </div>
         </div>
         <p id="comment_content${comment.comment_id}">${comment.content}</p>
@@ -155,11 +176,14 @@ async function viewDetail() {
 
   //댓글 삭제
   document.querySelectorAll('.comment_delete').forEach((button) => {
-    button.addEventListener('click', async (event) => {
-      const response = await axios.delete(
-        `/api/v1/posts/comment/${event.target.dataset.id}`
-      );
-      window.location.reload();
+    button.addEventListener('click', (event) => {
+      const checkBtn = document.getElementById('check_btn');
+      checkBtn.addEventListener('click', async () => {
+        const response = await axios.delete(
+          `/api/v1/posts/comment/${event.target.dataset.id}`
+        );
+        window.location.reload();
+      });
     });
   });
 }

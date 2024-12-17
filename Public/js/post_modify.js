@@ -12,20 +12,57 @@ backButton.addEventListener('click', () => {
   window.location.href = `/api/v1/posts/${postID}`;
 });
 
-function validate() {
-  if (!title.value) {
-    submitButton.style.backgroundColor = '#aca0eb';
-    submitButton.setAttribute('type', 'button');
-  } else if (!content.value) {
-    submitButton.style.backgroundColor = '#aca0eb';
-    submitButton.setAttribute('type', 'button');
+const validateRules = {
+  title: (value) => {
+    if (!value) return '* 제목을 입력해주세요';
+    if (value.length > 26) return '* 26자 이하로 적어주세요';
+  },
+  content: (value) => {
+    if (!value) return '* 내용을 적어주세요';
+  },
+};
+const isValid = {
+  title: false,
+  content: false,
+};
+const inputs = {
+  title: document.getElementById('title'),
+  content: document.getElementById('content'),
+};
+
+const helper_text = document.getElementById('helper_post');
+
+function validateField(field, value) {
+  const errorMessage = validateRules[field](value);
+  if (!errorMessage) {
+    isValid[field] = true;
   } else {
+    isValid[field] = false;
+  }
+  if (isValid.title && isValid.content) {
     submitButton.style.backgroundColor = '#7F6AEE';
     submitButton.setAttribute('type', 'submit');
+  } else {
+    submitButton.style.backgroundColor = '#aca0eb';
+    submitButton.setAttribute('type', 'button');
   }
+  helper_text.textContent = errorMessage;
+  helper_text.classList.toggle('hidden', !errorMessage);
 }
-title.addEventListener('input', validate);
-content.addEventListener('input', validate);
+
+inputs.title.addEventListener('input', () => {
+  validateField('title', inputs.title.value);
+});
+inputs.content.addEventListener('input', () => {
+  validateField('content', inputs.content.value);
+});
+submitButton.addEventListener('click', () => {
+  if (!isValid.title && !isValid.content) {
+    helper_text.innerText = '* 제목, 내용을 모두 작성해주세요';
+    helper_text.classList.remove('hidden');
+  }
+});
+
 modifyForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   const formData = new FormData();

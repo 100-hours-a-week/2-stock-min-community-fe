@@ -7,6 +7,7 @@ const profile = document.getElementById('profile_image');
 const helper_nickname = document.getElementById('helper_text');
 const nickname = document.getElementById('nickname_update');
 const modify_form = document.getElementById('modify_form');
+
 async function getCurrentUser() {
   try {
     const response = await axios.get('/api/v1/user');
@@ -22,7 +23,11 @@ async function getCurrentUser() {
 }
 getCurrentUser();
 
-nickname.addEventListener('input', () => {
+nickname.addEventListener('input', async () => {
+  const response = await axios.post('/api/v1/check-duplicated', {
+    data: value,
+    field: 'nickname',
+  });
   const nickname_value = nickname.value;
   if (!nickname_value) {
     helper_nickname.classList.remove('hidden');
@@ -37,6 +42,11 @@ nickname.addEventListener('input', () => {
   } else if (/\s/.test(nickname_value)) {
     helper_nickname.classList.remove('hidden');
     helper_nickname.textContent = '* 닉네임에 공백을 포함할 수 없습니다.';
+    modify_button.setAttribute('type', 'button');
+    modify_button.style.backgroundColor = '#aca0eb';
+  } else if (response.data.duplicated) {
+    helper_nickname.classList.remove('hidden');
+    helper_nickname.textContent = '* 이미 사용중인 닉네임 입니다.';
     modify_button.setAttribute('type', 'button');
     modify_button.style.backgroundColor = '#aca0eb';
   } else {
@@ -61,10 +71,6 @@ modify_form.addEventListener('submit', async (event) => {
     console.error(error);
     alert('Error');
   }
-});
-
-document.getElementById('close_btn').addEventListener('click', () => {
-  document.getElementById('modal').classList.add('hidden');
 });
 
 document.getElementById('check_btn').addEventListener('click', async () => {

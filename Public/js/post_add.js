@@ -54,6 +54,7 @@ function validateField(field, value) {
   helper_text.textContent = errorMessage;
   helper_text.classList.toggle('hidden', !errorMessage);
 }
+
 inputs.title.addEventListener('input', () => {
   validateField('title', inputs.title.value);
 });

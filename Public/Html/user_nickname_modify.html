@@ -42,22 +42,16 @@
           </article>
           <div class="modify_delete">
             <button type="button" id="modify_button">수정하기</button>
-            <p id="user_delete">회원 탈퇴</p>
+            <p
+              id="user_delete"
+              onclick="createModal('회원탈퇴 하시겠습니까?','작성한 게시글과 댓글은 삭제됩니다.')"
+            >
+              회원 탈퇴
+            </p>
           </div>
         </div>
       </form>
-
-      <div class="modal_box hidden" id="modal">
-        <div class="modal">
-          <h2>회원탈퇴 하시겠습니까?</h2>
-          <p>작성된 게시글과 댓글은 삭제됩니다.</p>
-          <div class="button_box">
-            <button class="close_btn" id="close_btn">취소</button>
-            <button class="check_btn" id="check_btn">확인</button>
-          </div>
-        </div>
-      </div>
-
+      <div id="modal_box" class="modal_box none"></div>
       <button class="modify_toast" id="modify_toast">수정완료</button>
       <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
       <script src="/js/logo.js"></script>

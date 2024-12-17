@@ -7,7 +7,7 @@ addPost.addEventListener('click', () => {
 async function uploadPost() {
   const postContainer = document.getElementById('post_list');
   try {
-    const response = await axios.get('/api/v1/posts');
+    const response = await axios.get('http://localhost:3000/api/v1/posts');
     // const responseCommentCount = await axios.get(
     //   `/api/v1/posts/${postID}/count/comment`
     // );
