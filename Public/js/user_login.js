@@ -20,6 +20,7 @@ function validate() {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const passwordRegex =
     /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/;
+
   if (!emailValue) {
     helperText.textContent = '* 이메일을 입력하세요';
     helperText.classList.remove('hidden');
