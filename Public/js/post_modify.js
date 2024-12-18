@@ -9,7 +9,7 @@ const postID = parseInt(currentLocation.split('/').pop());
 const backButton = document.getElementById('logo_back');
 
 backButton.addEventListener('click', () => {
-  window.location.href = `/api/v1/posts/${postID}`;
+  window.location.href = `/posts/${postID}`;
 });
 
 const validateRules = {
@@ -70,7 +70,7 @@ modifyForm.addEventListener('submit', async (event) => {
   formData.append('title', title.value);
   formData.append('content', content.value);
   formData.append('postIMG', postIMG.files[0]);
-  const response = await axios.patch(`/api/v1/posts/${postID}`, formData, {
+  const response = await axios.patch(`${serverURL}/posts/${postID}`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },

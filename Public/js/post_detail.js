@@ -10,18 +10,18 @@ const postDeleteButton = document.getElementById('delete');
 const backButton = document.getElementById('logo_back');
 
 backButton.addEventListener('click', () => {
-  window.location.href = `/api/v1/posts/list`;
+  window.location.href = `/posts/list`;
 });
 
 //게시글 수정&삭제
 postModifyButton.addEventListener('click', () => {
-  window.location.href = `/api/v1/posts/edit/${postID}`;
+  window.location.href = `/posts/edit/${postID}`;
 });
 postDeleteButton.addEventListener('click', async () => {
   const checkBtn = document.getElementById('check_btn');
   checkBtn.addEventListener('click', async () => {
-    const response = await axios.delete(`/api/v1/posts/${postID}`);
-    window.location.href = '/api/v1/posts/list';
+    const response = await axios.delete(`${serverURL}posts/${postID}`);
+    window.location.href = `/posts/list`;
   });
 });
 
@@ -46,7 +46,7 @@ function getCurrentTime() {
 // 게시글 내용 출력문
 viewDetail();
 async function viewDetail() {
-  const response = await axios.get('/api/v1/posts');
+  const response = await axios.get(`${serverURL}/posts`);
   const postInfo = {
     postIMG: document.getElementById('post_img_content'),
     title: document.getElementById('title'),
@@ -83,24 +83,24 @@ async function viewDetail() {
   const view = document.getElementById('view_count');
   const comment = document.getElementById('comment_count');
   const responseCommentCount = await axios.get(
-    `/api/v1/posts/${postID}/count/comment`
+    `${serverURL}/posts/${postID}/count/comment`
   );
   const responseViewCount = await axios.get(
-    `/api/v1/posts/${postID}/count/view`
+    `${serverURL}/posts/${postID}/count/view`
   );
   const responseLikeCount = await axios.get(
-    `/api/v1/posts/${postID}/count/like`
+    `${serverURL}/posts/${postID}/count/like`
   );
 
   const responseCheckLike = await axios.get(
-    `/api/v1/posts/${postID}/check/like`
+    `${serverURL}/posts/${postID}/check/like`
   );
   like.classList.toggle('likePushed', responseCheckLike.data.data[0].cnt > 0);
 
   //좋아요 버튼 클릭 시
   like.addEventListener('click', async () => {
     const responseCheckLike = await axios.get(
-      `/api/v1/posts/${postID}/check/like`
+      `${serverURL}/posts/${postID}/check/like`
     );
     like.classList.toggle(
       'likePushed',
@@ -109,12 +109,12 @@ async function viewDetail() {
 
     if (responseCheckLike.data.data[0].cnt === 0) {
       const responseAddLike = await axios.post(
-        `/api/v1/posts/${postID}/count/like`
+        `${serverURL}/posts/${postID}/count/like`
       );
       likeCount.innerText = responseAddLike.data.data[0].cnt;
     } else {
       const responseDeleteLike = await axios.delete(
-        `/api/v1/posts/${postID}/count/like`
+        `${serverURL}/posts/${postID}/count/like`
       );
       likeCount.innerText = responseDeleteLike.data.data[0].cnt;
     }
@@ -127,7 +127,9 @@ async function viewDetail() {
 
   //게시글 댓글 출력문
   const commentContainer = document.getElementById('comment_box');
-  const responseComment = await axios.get(`/api/v1/posts/comment/${postID}`);
+  const responseComment = await axios.get(
+    `${serverURL}/posts/comment/${postID}`
+  );
 
   responseComment.data.data.map((comment) => {
     const commentView = `
@@ -166,7 +168,7 @@ async function viewDetail() {
 
       commit.addEventListener('click', async () => {
         const response = await axios.patch(
-          `/api/v1/posts/comment/${event.target.dataset.id}`,
+          `${serverURL}/posts/comment/${event.target.dataset.id}`,
           { data: input.value }
         );
         window.location.reload();
@@ -180,7 +182,7 @@ async function viewDetail() {
       const checkBtn = document.getElementById('check_btn');
       checkBtn.addEventListener('click', async () => {
         const response = await axios.delete(
-          `/api/v1/posts/comment/${event.target.dataset.id}`
+          `${serverURL}/posts/comment/${event.target.dataset.id}`
         );
         window.location.reload();
       });
@@ -206,7 +208,7 @@ writeForm.addEventListener('submit', async (event) => {
     commentAutor: '',
   };
   const response = await axios.post(
-    `/api/v1/posts/comment/${postID}`,
+    `${serverURL}/posts/comment/${postID}`,
     commentData
   );
   window.location.reload();

@@ -10,7 +10,7 @@ const modify_form = document.getElementById('modify_form');
 
 async function getCurrentUser() {
   try {
-    const response = await axios.get('/api/v1/user');
+    const response = await axios.get(`${serverURL}/user`);
 
     if (response.status === 200) {
       const userData = response.data;
@@ -24,7 +24,7 @@ async function getCurrentUser() {
 getCurrentUser();
 
 nickname.addEventListener('input', async () => {
-  const response = await axios.post('/api/v1/check-duplicated', {
+  const response = await axios.post(`${serverURL}/check-duplicated`, {
     data: value,
     field: 'nickname',
   });
@@ -64,7 +64,7 @@ modify_form.addEventListener('submit', async (event) => {
     field: 'nickname',
   };
   try {
-    const response = await axios.patch('/api/v1/user', patchList);
+    const response = await axios.patch(`${serverURL}/user`, patchList);
     setTimeout(() => modify_toast.classList.add('show'), 100);
     setTimeout(() => modify_toast.classList.remove('show'), 3000);
   } catch (error) {
@@ -75,7 +75,7 @@ modify_form.addEventListener('submit', async (event) => {
 
 document.getElementById('check_btn').addEventListener('click', async () => {
   try {
-    const response = await axios.delete('/api/v1/user');
+    const response = await axios.delete(`${serverURL}/user`);
     document.getElementById('modal').classList.add('hidden');
     alert('삭제 완료');
   } catch (error) {

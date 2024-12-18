@@ -1,13 +1,23 @@
 const addPost = document.getElementById('post_add');
 
 addPost.addEventListener('click', () => {
-  window.location.href = '/api/v1/posts/new';
+  window.location.href = '/posts/new';
 });
+async function fetchUser() {
+  try {
+    const response = await axios.get(`${serverURL}/user`, {
+      withCredentials: 'include',
+    });
+  } catch (error) {
+    console.error('세션 정보 가져오기 실패 : ', error);
+  }
+}
 
 async function uploadPost() {
+  fetchUser();
   const postContainer = document.getElementById('post_list');
   try {
-    const response = await axios.get('http://localhost:3000/api/v1/posts');
+    const response = await axios.get(`${serverURL}/posts`);
     // const responseCommentCount = await axios.get(
     //   `/api/v1/posts/${postID}/count/comment`
     // );
@@ -32,7 +42,7 @@ async function uploadPost() {
             </div>
             <div class="profile_area">
               <img
-                src="${post.autorProfile}"
+                src="${serverURL}${post.autorProfile}"
                 alt="profile"
                 class="profile_img"
               />
@@ -53,7 +63,7 @@ function addLiEvent() {
 
   listItems.forEach((item) => {
     item.addEventListener('click', () => {
-      window.location.href = `/api/v1/posts/${item.id}`;
+      window.location.href = `/posts/${item.id}`;
     });
   });
 }

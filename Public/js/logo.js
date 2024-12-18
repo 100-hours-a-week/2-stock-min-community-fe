@@ -1,10 +1,16 @@
-// function getRelativeImagePath(relativePath) {
-//   const depth = (window.location.pathname.match(/\//g) || []).length - 2;
-//   const upLevel = '/'.repeat(depth);
-//   console.log(`${upLevel}${relativePath}`);
-//   return `${upLevel}${relativePath}`;
-// }
+const serverURL = 'http://localhost:3000/api/v1';
 const logo = document.getElementById('logo');
+
+// async function fetchUser() {
+//   try {
+//     const response = await axios.get(`${serverURL}user`, {
+//       credentials: 'include',
+//     });
+//     return response;
+//   } catch (error) {
+//     console.error('세션 정보 가져오기 실패 : ', error);
+//   }
+// }
 
 const logo_basic = `<div class="logo_container">
         <div>
@@ -58,8 +64,8 @@ const logo_all = `<div class="logo_container">
     </div>`;
 const url = window.location.pathname;
 
-const logo_default = ['/login'];
-const logo_has_back = ['/regist'];
+const logo_default = ['/user/login'];
+const logo_has_back = ['/user/regist'];
 const logo_has_profile = ['/posts/list', '/user/nickname', '/user/password'];
 const logo_has_full = ['/posts/edit', '/posts/new', '/posts'];
 
@@ -80,14 +86,14 @@ document.getElementById('profile_img').addEventListener('mouseenter', () => {
                 <li id="logout">로그아웃</li>
             </ul>`;
   document.getElementById('nickname_modify').addEventListener('click', () => {
-    window.location.href = '/api/v1/user/nickname';
+    window.location.href = '/user/nickname';
   });
   document.getElementById('password_modify').addEventListener('click', () => {
-    window.location.href = '/api/v1/user/password';
+    window.location.href = '/user/password';
   });
   document.getElementById('logout').addEventListener('click', async () => {
     try {
-      const response = await axios.get('/api/v1/logout');
+      const response = await axios.get(`${serverURL}/logout`);
       window.location.href = '/api/v1/login';
     } catch (error) {
       console.error('Error : ', error);
@@ -100,10 +106,12 @@ document.getElementById('profile_box').addEventListener('mouseleave', () => {
 
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const response = await axios.get('/api/v1/user');
+    const response = await axios.get(`${serverURL}/user`, {
+      withCredentials: 'true',
+    });
     const profile_img = document.getElementById('profile_img');
 
-    profile_img.src = response.data.profile;
+    profile_img.src = `${serverURL}${response.data.profile}`;
   } catch (error) {
     console.error('Error : ', error);
   }

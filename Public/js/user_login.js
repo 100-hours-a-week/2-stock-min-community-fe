@@ -10,7 +10,7 @@ let isEmailValid = false;
 let isPasswordValid = false;
 
 regist.addEventListener('click', () => {
-  window.location.href = '/api/v1/regist';
+  window.location.href = '/user/regist';
 });
 
 function validate() {
@@ -69,9 +69,11 @@ login_form.addEventListener('submit', async (event) => {
   };
 
   try {
-    const response = await axios.post('/api/v1/login', userData);
+    const response = await axios.post(`${serverURL}/login`, userData, {
+      withCredentials: 'true',
+    });
     alert('로그인 성공');
-    window.location.href = '/api/v1/posts/list';
+    window.location.href = `/posts/list`;
   } catch (error) {
     console.error(error);
     alert('로그인 실패');

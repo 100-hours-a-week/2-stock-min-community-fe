@@ -5,10 +5,10 @@ function openFileDialog() {
   document.getElementById('fileInput').click();
 }
 login.addEventListener('click', () => {
-  window.location.href = '/api/v1/login';
+  window.location.href = '/user/login';
 });
 back.addEventListener('click', () => {
-  window.location.href = '/api/v1/login';
+  window.location.href = '/user/login';
 });
 const validationRules = {
   profile: (value) => {
@@ -23,7 +23,7 @@ const validationRules = {
 
     // 서버로 이메일 중복 확인 요청
 
-    const response = await axios.post('/api/v1/check-duplicated', {
+    const response = await axios.post(`${serverURL}/check-duplicated`, {
       data: value,
       field: 'email',
     });
@@ -52,7 +52,7 @@ const validationRules = {
     if (/\s/.test(value)) return '* 닉네임에 공백을 포함할 수 없습니다.';
 
     //닉네임 중복 확인 요청
-    const response = await axios.post('/api/v1/check-duplicated', {
+    const response = await axios.post(`${serverURL}/check-duplicated`, {
       data: value,
       field: 'nickname',
     });
@@ -159,13 +159,13 @@ document
     formData.append('nickname', inputs.nickname.value);
 
     try {
-      const response = await axios.post('/api/v1/regist', formData, {
+      const response = await axios.post(`${serverURL}/regist`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
       alert('회원가입 성공');
-      window.location.href = '/api/v1/login';
+      window.location.href = '/user/login';
     } catch (error) {
       console.error(error);
       alert('회원가입 중 오류가 발생했습니다.');

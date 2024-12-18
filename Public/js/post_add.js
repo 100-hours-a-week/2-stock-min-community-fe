@@ -12,6 +12,7 @@ function getCurrentTime() {
   // 원하는 형식으로 조합
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
+
 const submitButton = document.getElementById('submit_button');
 const validateRules = {
   title: (value) => {
@@ -24,7 +25,7 @@ const validateRules = {
 };
 const backButton = document.getElementById('logo_back');
 backButton.addEventListener('click', () => {
-  window.location.href = '/api/v1/posts/list';
+  window.location.href = '/posts/list';
 });
 const isValid = {
   title: false,
@@ -79,13 +80,13 @@ document
     postData.append('postDate', getCurrentTime());
 
     try {
-      const response = await axios.post('/api/v1/posts', postData, {
+      const response = await axios.post(`${serverURL}/posts`, postData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
       alert('게시글 등록 성공');
-      window.location.href = '/api/v1/posts/list';
+      window.location.href = '/posts/list';
     } catch (error) {
       console.error('데이터 전송 실패 : ', error);
     }

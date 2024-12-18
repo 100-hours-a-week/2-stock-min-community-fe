@@ -44,7 +44,7 @@ textarea {
   visibility: hidden;
 }
 .none {
-  display: none;
+  display: none !important;
 }
 
 .helper_text {
