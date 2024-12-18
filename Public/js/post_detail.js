@@ -20,7 +20,9 @@ postModifyButton.addEventListener('click', () => {
 postDeleteButton.addEventListener('click', async () => {
   const checkBtn = document.getElementById('check_btn');
   checkBtn.addEventListener('click', async () => {
-    const response = await axios.delete(`${serverURL}posts/${postID}`);
+    const response = await axios.delete(`${serverURL}/posts/${postID}`, {
+      withCredentials: 'include',
+    });
     window.location.href = `/posts/list`;
   });
 });
@@ -46,7 +48,9 @@ function getCurrentTime() {
 // 게시글 내용 출력문
 viewDetail();
 async function viewDetail() {
-  const response = await axios.get(`${serverURL}/posts`);
+  const response = await axios.get(`${serverURL}/posts`, {
+    withCredentials: 'include',
+  });
   const postInfo = {
     postIMG: document.getElementById('post_img_content'),
     title: document.getElementById('title'),
@@ -60,14 +64,14 @@ async function viewDetail() {
   };
 
   const index = response.data.data.findIndex((post) => postID === post.post_id);
-  postInfo.profileImg.src = response.data.data[index].autorProfile;
+  postInfo.profileImg.src = `${imageURL}${response.data.data[index].autorProfile}`;
 
   //게시글 이미지 추가 안했을땐 가리기
   postInfo.postIMG.classList.toggle(
     'none',
     !response.data.data[index].postImage
   );
-  postInfo.postIMG.src = response.data.data[index].postImage;
+  postInfo.postIMG.src = `${imageURL}${response.data.data[index].postImage}`;
 
   postInfo.title.textContent = response.data.data[index].title;
   postInfo.autor.textContent = response.data.data[index].autor;
@@ -83,24 +87,39 @@ async function viewDetail() {
   const view = document.getElementById('view_count');
   const comment = document.getElementById('comment_count');
   const responseCommentCount = await axios.get(
-    `${serverURL}/posts/${postID}/count/comment`
+    `${serverURL}/posts/${postID}/count/comment`,
+    {
+      withCredentials: 'include',
+    }
   );
   const responseViewCount = await axios.get(
-    `${serverURL}/posts/${postID}/count/view`
+    `${serverURL}/posts/${postID}/count/view`,
+    {
+      withCredentials: 'include',
+    }
   );
   const responseLikeCount = await axios.get(
-    `${serverURL}/posts/${postID}/count/like`
+    `${serverURL}/posts/${postID}/count/like`,
+    {
+      withCredentials: 'include',
+    }
   );
 
   const responseCheckLike = await axios.get(
-    `${serverURL}/posts/${postID}/check/like`
+    `${serverURL}/posts/${postID}/check/like`,
+    {
+      withCredentials: 'include',
+    }
   );
   like.classList.toggle('likePushed', responseCheckLike.data.data[0].cnt > 0);
 
   //좋아요 버튼 클릭 시
   like.addEventListener('click', async () => {
     const responseCheckLike = await axios.get(
-      `${serverURL}/posts/${postID}/check/like`
+      `${serverURL}/posts/${postID}/check/like`,
+      {
+        withCredentials: 'include',
+      }
     );
     like.classList.toggle(
       'likePushed',
@@ -109,12 +128,19 @@ async function viewDetail() {
 
     if (responseCheckLike.data.data[0].cnt === 0) {
       const responseAddLike = await axios.post(
-        `${serverURL}/posts/${postID}/count/like`
+        `${serverURL}/posts/${postID}/count/like`,
+        {},
+        {
+          withCredentials: 'include',
+        }
       );
       likeCount.innerText = responseAddLike.data.data[0].cnt;
     } else {
       const responseDeleteLike = await axios.delete(
-        `${serverURL}/posts/${postID}/count/like`
+        `${serverURL}/posts/${postID}/count/like`,
+        {
+          withCredentials: 'include',
+        }
       );
       likeCount.innerText = responseDeleteLike.data.data[0].cnt;
     }
@@ -136,7 +162,7 @@ async function viewDetail() {
     <div class="comment_ind">
         <div class="comment_info">
           <div class="profile">
-            <img src="${comment.profile}" class="profile_img" />
+            <img src="${imageURL}${comment.profile}" class="profile_img" />
             <h4 id="comment_autor">${comment.autor}</h4>
           </div>
           <div class="comment_date">
@@ -209,7 +235,10 @@ writeForm.addEventListener('submit', async (event) => {
   };
   const response = await axios.post(
     `${serverURL}/posts/comment/${postID}`,
-    commentData
+    commentData,
+    {
+      withCredentials: 'include',
+    }
   );
   window.location.reload();
 });

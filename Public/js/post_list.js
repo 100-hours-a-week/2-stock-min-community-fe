@@ -42,7 +42,7 @@ async function uploadPost() {
             </div>
             <div class="profile_area">
               <img
-                src="${serverURL}${post.autorProfile}"
+                src="${imageURL}${post.autorProfile}"
                 alt="profile"
                 class="profile_img"
               />

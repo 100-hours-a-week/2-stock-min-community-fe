@@ -1,4 +1,5 @@
 const serverURL = 'http://localhost:3000/api/v1';
+const imageURL = 'http://localhost:3000';
 const logo = document.getElementById('logo');
 
 // async function fetchUser() {
@@ -77,7 +78,7 @@ if (logo_default.some((pattern) => url.includes(pattern))) {
   logo.innerHTML = logo_no_back;
 } else {
   logo.innerHTML = logo_all;
-  console.log(document.getElementById('profile_img').src);
+  // console.log(document.getElementById('profile_img').src);
 }
 document.getElementById('profile_img').addEventListener('mouseenter', () => {
   document.getElementById('profile_menu').innerHTML = `<ul id="menu">
@@ -94,7 +95,7 @@ document.getElementById('profile_img').addEventListener('mouseenter', () => {
   document.getElementById('logout').addEventListener('click', async () => {
     try {
       const response = await axios.get(`${serverURL}/logout`);
-      window.location.href = '/api/v1/login';
+      window.location.href = '/user/login';
     } catch (error) {
       console.error('Error : ', error);
     }
@@ -107,11 +108,12 @@ document.getElementById('profile_box').addEventListener('mouseleave', () => {
 document.addEventListener('DOMContentLoaded', async () => {
   try {
     const response = await axios.get(`${serverURL}/user`, {
-      withCredentials: 'true',
+      withCredentials: 'include',
     });
+
     const profile_img = document.getElementById('profile_img');
 
-    profile_img.src = `${serverURL}${response.data.profile}`;
+    profile_img.src = `${imageURL}${response.data.profile}`;
   } catch (error) {
     console.error('Error : ', error);
   }

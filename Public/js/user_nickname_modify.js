@@ -10,12 +10,14 @@ const modify_form = document.getElementById('modify_form');
 
 async function getCurrentUser() {
   try {
-    const response = await axios.get(`${serverURL}/user`);
+    const response = await axios.get(`${serverURL}/user`, {
+      withCredentials: 'include',
+    });
 
     if (response.status === 200) {
       const userData = response.data;
       email.textContent = userData.email;
-      profile_image.src = userData.profile;
+      profile_image.src = `${imageURL}${userData.profile}`;
     }
   } catch (error) {
     console.error('사용자 정보 불러올 수 없음 : ', error);
@@ -23,9 +25,9 @@ async function getCurrentUser() {
 }
 getCurrentUser();
 
-nickname.addEventListener('input', async () => {
+nickname.addEventListener('input', async (event) => {
   const response = await axios.post(`${serverURL}/check-duplicated`, {
-    data: value,
+    data: event.target.value,
     field: 'nickname',
   });
   const nickname_value = nickname.value;
@@ -64,7 +66,9 @@ modify_form.addEventListener('submit', async (event) => {
     field: 'nickname',
   };
   try {
-    const response = await axios.patch(`${serverURL}/user`, patchList);
+    const response = await axios.patch(`${serverURL}/user`, patchList, {
+      withCredentials: 'include',
+    });
     setTimeout(() => modify_toast.classList.add('show'), 100);
     setTimeout(() => modify_toast.classList.remove('show'), 3000);
   } catch (error) {
@@ -72,14 +76,18 @@ modify_form.addEventListener('submit', async (event) => {
     alert('Error');
   }
 });
+user_delete.addEventListener('click', () => {
+  document.getElementById('check_btn').addEventListener('click', async () => {
+    try {
+      const response = await axios.delete(`${serverURL}/user`, {
+        withCredentials: 'include',
+      });
 
-document.getElementById('check_btn').addEventListener('click', async () => {
-  try {
-    const response = await axios.delete(`${serverURL}/user`);
-    document.getElementById('modal').classList.add('hidden');
-    alert('삭제 완료');
-  } catch (error) {
-    console.error(error);
-    alert('처리 불가');
-  }
+      alert('삭제 완료');
+      window.location.href = '/user/login';
+    } catch (error) {
+      console.error(error);
+      alert('처리 불가');
+    }
+  });
 });

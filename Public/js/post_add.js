@@ -63,7 +63,7 @@ inputs.content.addEventListener('input', () => {
   validateField('content', inputs.content.value);
 });
 submitButton.addEventListener('click', () => {
-  if (!isValid.title && !isValid.content) {
+  if (!isValid.title || !isValid.content) {
     helper_text.innerText = '* 제목, 내용을 모두 작성해주세요';
     helper_text.classList.remove('hidden');
   }
@@ -84,6 +84,7 @@ document
         headers: {
           'Content-Type': 'multipart/form-data',
         },
+        withCredentials: 'include',
       });
       alert('게시글 등록 성공');
       window.location.href = '/posts/list';

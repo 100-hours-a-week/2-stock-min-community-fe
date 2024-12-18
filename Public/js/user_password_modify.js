@@ -73,7 +73,9 @@ document
         modify_toast.classList.remove('show');
         setTimeout(() => container.removeChild(toast), 300);
       }, 3000);
-      const response = await axios.patch(`${serverURL}/user`, patchList);
+      const response = await axios.patch(`${serverURL}/user`, patchList, {
+        withCredentials: 'include',
+      });
     } catch (error) {
       console.error(error);
       alert('Error');

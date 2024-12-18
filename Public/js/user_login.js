@@ -18,8 +18,9 @@ function validate() {
   const emailValue = emailInput.value;
   const passwordValue = passwordInput.value;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  if (emailValue === '') {
+  const passwordRegex =
+    /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/;
+  if (!emailValue) {
     helperText.textContent = '* 이메일을 입력하세요';
     helperText.classList.remove('hidden');
     isEmailValid = false;
@@ -31,18 +32,29 @@ function validate() {
     helperText.textContent = '* 유효하지 않은 이메일 입니다.';
     helperText.classList.remove('hidden');
     isEmailValid = false;
+  } else if (!passwordValue) {
+    helperText.textContent = '* 비밀번호를 입력해주세요';
+    isPasswordValid = false;
+  } else if (!passwordRegex.test(passwordValue)) {
+    helperText.textContent =
+      '* 비밀번호는 8자 이상, 대소문자, 숫자, 특수문자를 포함해야 합니다.';
+    isPasswordValid = false;
   } else {
     helperText.classList.add('hidden');
     isEmailValid = true;
-  }
-  const passwordRegex =
-    /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/;
-
-  if (passwordValue.length > 7) {
     isPasswordValid = true;
-  } else {
-    isPasswordValid = false;
   }
+
+  // if (!passwordValue) {
+  //   helperText.textContent = '* 비밀번호를 입력해주세요';
+  //   isPasswordValid = false;
+  // } else if (!passwordRegex.test(passwordValue)) {
+  //   helperText.textContent =
+  //     '* 비밀번호는 8자 이상, 대소문자, 숫자, 특수문자를 포함해야 합니다.';
+  //   isPasswordValid = false;
+  // } else {
+  //   isPasswordValid = true;
+  // }
 
   if (isEmailValid && isPasswordValid) {
     submit_button.setAttribute('type', 'submit');
