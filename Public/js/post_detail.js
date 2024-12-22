@@ -56,7 +56,7 @@ async function viewDetail() {
     view: document.getElementById('view_count'),
     profileImg: document.getElementById('profile_img_post'),
   };
-  console.log(responseGetAuth.data.post[0]);
+
   const index = response.data.data.findIndex((post) => postID === post.post_id);
   postInfo.profileImg.src = `${imageURL}${response.data.data[index].autorProfile}`;
 
@@ -113,24 +113,15 @@ async function viewDetail() {
   const likeCount = document.getElementById('like_count');
   const view = document.getElementById('view_count');
   const comment = document.getElementById('comment_count');
-  const responseCommentCount = await axios.get(
-    `${serverURL}/posts/${postID}/count/comment`,
-    {
-      withCredentials: 'include',
-    }
-  );
-  const responseViewCount = await axios.get(
+  const responseAddView = await axios.get(
     `${serverURL}/posts/${postID}/count/view`,
     {
       withCredentials: 'include',
     }
   );
-  const responseLikeCount = await axios.get(
-    `${serverURL}/posts/${postID}/count/like`,
-    {
-      withCredentials: 'include',
-    }
-  );
+  const responseGetLCV = await axios.get(`${serverURL}/posts/lcv/${postID}`, {
+    withCredentials: 'include',
+  });
 
   const responseCheckLike = await axios.get(
     `${serverURL}/posts/${postID}/check/like`,
@@ -154,14 +145,12 @@ async function viewDetail() {
     );
 
     if (responseCheckLike.data.data[0].cnt === 0) {
-      const responseAddLike = await axios.post(
+      const responseAddLike = await axios.get(
         `${serverURL}/posts/${postID}/count/like`,
-        {},
         {
           withCredentials: 'include',
         }
       );
-      likeCount.innerText = responseAddLike.data.data[0].cnt;
     } else {
       const responseDeleteLike = await axios.delete(
         `${serverURL}/posts/${postID}/count/like`,
@@ -169,14 +158,18 @@ async function viewDetail() {
           withCredentials: 'include',
         }
       );
-      likeCount.innerText = responseDeleteLike.data.data[0].cnt;
     }
+    const responseGetLCV = await axios.get(`${serverURL}/posts/lcv/${postID}`, {
+      withCredentials: 'include',
+    });
+
+    likeCount.innerText = responseGetLCV.data[0].like_count;
   });
 
   //좋아요, 댓글 수, 조회수 출력
-  likeCount.innerText = responseLikeCount.data.data[0].cnt;
-  view.innerText = responseViewCount.data.data[0].cnt;
-  comment.innerText = responseCommentCount.data.data[0].cnt;
+  likeCount.innerText = responseGetLCV.data[0].like_count;
+  view.innerText = responseGetLCV.data[0].view_count;
+  comment.innerText = responseGetLCV.data[0].comment_count;
 
   //게시글 댓글 출력문
   const commentContainer = document.getElementById('comment_box');
