@@ -1,11 +1,28 @@
+//시간 출력 형식 맞춰주기
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  return date.toLocaleString('ko-KR', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    timeZone: 'Asia/Seoul',
+  });
+}
+async function getPostsComment() {
+  const response = axios.get(`${serverURL}/comment/${postID}`);
+  return response.data;
+}
+function authCheck(commentNum) {
+  document.querySelectorAll('.modify_delete').forEach((element) => {});
+}
 const commentSubmit = document.getElementById('comment_submit');
 const writeForm = document.getElementById('write_form');
 const comment = document.getElementById('comment');
 const currentLocation = window.location.pathname;
 const postID = parseInt(currentLocation.split('/').pop());
-
-const postModifyButton = document.getElementById('modify');
-const postDeleteButton = document.getElementById('delete');
 
 const backButton = document.getElementById('logo_back');
 
@@ -14,35 +31,10 @@ backButton.addEventListener('click', () => {
 });
 
 //게시글 수정&삭제
-postModifyButton.addEventListener('click', () => {
-  window.location.href = `/posts/edit/${postID}`;
-});
-postDeleteButton.addEventListener('click', async () => {
-  const checkBtn = document.getElementById('check_btn');
-  checkBtn.addEventListener('click', async () => {
-    const response = await axios.delete(`${serverURL}/posts/${postID}`, {
-      withCredentials: 'include',
-    });
-    window.location.href = `/posts/list`;
-  });
-});
-
-// commentDeleteButton.addEventListener('click', () => {});
-// comment;
 
 function getCurrentTime() {
   const now = new Date();
-
-  // 각 시간 요소를 얻고 두 자리로 맞춤
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1 필요
-  const day = String(now.getDate()).padStart(2, '0');
-  const hours = String(now.getHours()).padStart(2, '0');
-  const minutes = String(now.getMinutes()).padStart(2, '0');
-  const seconds = String(now.getSeconds()).padStart(2, '0');
-
-  // 원하는 형식으로 조합
-  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  return now;
 }
 
 // 게시글 내용 출력문
@@ -51,8 +43,10 @@ async function viewDetail() {
   const response = await axios.get(`${serverURL}/posts`, {
     withCredentials: 'include',
   });
+  const responseGetAuth = await axios.get(`${serverURL}/posts/auth`, {
+    withCredentials: 'include',
+  });
   const postInfo = {
-    postIMG: document.getElementById('post_img_content'),
     title: document.getElementById('title'),
     autor: document.getElementById('autor'),
     postDate: document.getElementById('post_date'),
@@ -62,20 +56,53 @@ async function viewDetail() {
     view: document.getElementById('view_count'),
     profileImg: document.getElementById('profile_img_post'),
   };
-
+  console.log(responseGetAuth.data.post[0]);
   const index = response.data.data.findIndex((post) => postID === post.post_id);
   postInfo.profileImg.src = `${imageURL}${response.data.data[index].autorProfile}`;
 
-  //게시글 이미지 추가 안했을땐 가리기
-  postInfo.postIMG.classList.toggle(
-    'none',
-    !response.data.data[index].postImage
-  );
-  postInfo.postIMG.src = `${imageURL}${response.data.data[index].postImage}`;
+  //게시글 이미지 추가
+  if (response.data.data[index].postImage) {
+    const content_box = document.getElementById('content_box');
+    const img = document.createElement('img');
+    img.src = `${imageURL}${response.data.data[index].postImage}`;
+    img.id = 'post_img_content';
+    content_box.insertAdjacentElement('afterbegin', img);
+  }
+
+  //내가 만든 게시글만 수정/삭제 버튼 띄우기
+  if (responseGetAuth.data.post.find((element) => element.post_id === postID)) {
+    const postMD = document.getElementById('post_md_button');
+    const mdButton = `
+    <button id="modify">수정</button>
+            <button
+              id="delete"
+              onclick="createModal('게시글을 삭제하시겠습니까?','삭제한 내용은 복구할 수 없습니다')"
+            >
+              삭제
+            </button>
+            `;
+    postMD.innerHTML = mdButton;
+    const postModifyButton = document.getElementById('modify');
+    const postDeleteButton = document.getElementById('delete');
+    postModifyButton.addEventListener('click', () => {
+      window.location.href = `/posts/edit/${postID}`;
+    });
+    postDeleteButton.addEventListener('click', async () => {
+      const checkBtn = document.getElementById('check_btn');
+      checkBtn.addEventListener('click', async () => {
+        const response = await axios.delete(`${serverURL}/posts/${postID}`, {
+          withCredentials: 'include',
+        });
+        window.location.href = `/posts/list`;
+      });
+    });
+  }
 
   postInfo.title.textContent = response.data.data[index].title;
   postInfo.autor.textContent = response.data.data[index].autor;
-  postInfo.postDate.textContent = response.data.data[index].postDate;
+  postInfo.postDate.textContent = formatDate(
+    response.data.data[index].postDate
+  );
   postInfo.content.textContent = response.data.data[index].content;
   postInfo.like.textContent = response.data.data[index].like;
   postInfo.comment.textContent = response.data.data[index].comment;
@@ -149,7 +176,7 @@ async function viewDetail() {
   //좋아요, 댓글 수, 조회수 출력
   likeCount.innerText = responseLikeCount.data.data[0].cnt;
   view.innerText = responseViewCount.data.data[0].cnt;
-  comment.innerText = responseCommentCount.data.data[0]['COUNT(content)'];
+  comment.innerText = responseCommentCount.data.data[0].cnt;
 
   //게시글 댓글 출력문
   const commentContainer = document.getElementById('comment_box');
@@ -166,16 +193,29 @@ async function viewDetail() {
             <h4 id="comment_autor">${comment.autor}</h4>
           </div>
           <div class="comment_date">
-            <p id="comment_date">${comment.date}</p>
+            <p id="comment_date">${formatDate(comment.date)}</p>
           </div>
-          <div class="modify_delete">
-            <button class="comment_modify" data-id=${comment.comment_id}>수정</button>
-            <button class="comment_delete" data-id=${comment.comment_id} onclick="createModal('댓글을 삭제하시겠습니까?','삭제한 내용은 복구할 수 없습니다')">삭제</button>
+          <div class="modify_delete" id="comment_md${comment.comment_id}">
           </div>
         </div>
         <p id="comment_content${comment.comment_id}">${comment.content}</p>
     </div>`;
     commentContainer.innerHTML += commentView;
+
+    //내가 작성한 댓글만 수정/삭제 버튼 생성
+    if (
+      responseGetAuth.data.comment.find(
+        (element) => element.comment_id === comment.comment_id
+      )
+    ) {
+      const commentMD = document.getElementById(
+        `comment_md${comment.comment_id}`
+      );
+      commentMD.innerHTML = `
+      <button class="comment_modify" data-id=${comment.comment_id}>수정</button>
+      <button class="comment_delete" data-id=${comment.comment_id} onclick="createModal('댓글을 삭제하시겠습니까?','삭제한 내용은 복구할 수 없습니다')">삭제</button>
+      `;
+    }
   });
 
   //댓글 수정

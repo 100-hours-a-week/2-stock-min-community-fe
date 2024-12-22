@@ -12,6 +12,10 @@ app.use(express.static(path.join(__dirname, '/public')));
 //   }
 //   next(); // 인증 통과 시 다음 로직으로 진행
 // }
+
+app.get('/', (req, res) => {
+  res.redirect('/user/login');
+});
 // USER;
 
 // 회원가입 페이지
