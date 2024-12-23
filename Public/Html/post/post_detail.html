@@ -23,15 +23,7 @@
             <h4 id="autor">더미 작성자 1</h4>
             <p id="post_date">2021-01-01 00:00:00</p>
           </div>
-          <div class="modify_delete" id="post_md_button">
-            <!-- <button id="modify">수정</button>
-            <button
-              id="delete"
-              onclick="createModal('게시글을 삭제하시겠습니까?','삭제한 내용은 복구할 수 없습니다')"
-            >
-              삭제
-            </button> -->
-          </div>
+          <div class="modify_delete" id="post_md_button"></div>
         </article>
       </div>
     </section>
@@ -39,7 +31,7 @@
     <!-- post_content -->
     <section id="post_content">
       <article class="post_content_box" id="content_box">
-        <p id="content">content</p>
+        <p class="content" id="content">content</p>
       </article>
       <article class="number_lcv_box">
         <!-- lcv = like_commnet_views -->
@@ -72,7 +64,7 @@
       </form>
       <article class="comment_list" id="comment_box"></article>
     </section>
-    <div class="modal_box none" id="modal_box"></div>
+    <div class="modal_box" id="modal_box"></div>
     <script src="/js/modal.js"></script>
     <script src="/js/logo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

@@ -3,17 +3,35 @@
   position: fixed;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  opacity: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+}
+.modal {
   width: 350px;
   height: 200px;
   border-radius: 12px;
-  background-color: #ffffff;
-  top: 40%;
-  left: 35%;
-}
-.modal {
+  padding: 20px;
+  box-sizing: border-box;
+  background: white;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
+}
+.modal h2 {
+  margin: 0;
+  margin-top: 20px;
+}
+.active {
+  opacity: 1;
+  pointer-events: auto;
 }
 .button_box * {
   width: 100px;
@@ -21,4 +39,7 @@
 }
 .close_btn {
   background-color: black;
+}
+.body-lock {
+  overflow: hidden;
 }

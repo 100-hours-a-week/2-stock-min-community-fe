@@ -24,7 +24,13 @@
                 class="profile_image"
                 id="profile_image"
               />
-              <button type="button" id="image_modify">변경</button>
+              <button
+                type="button"
+                id="image_modify"
+                onclick="openFileDialog()"
+              >
+                변경
+              </button>
             </div>
           </article>
           <article>
@@ -33,11 +39,7 @@
           </article>
           <article class="nickname_container">
             <h4>닉네임</h4>
-            <input
-              type="text"
-              placeholder="스타트업코드"
-              id="nickname_update"
-            />
+            <input type="text" placeholder="" id="nickname_update" />
             <p class="helper_text" id="helper_text"></p>
           </article>
           <div class="modify_delete">
@@ -50,8 +52,15 @@
             </p>
           </div>
         </div>
+        <input
+          type="file"
+          class="none"
+          id="fileInput"
+          name="fileInput"
+          accept="image/*"
+        />
       </form>
-      <div id="modal_box" class="modal_box none"></div>
+      <div id="modal_box" class="modal_box"></div>
       <button class="modify_toast" id="modify_toast">수정완료</button>
       <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
       <script src="/js/logo.js"></script>

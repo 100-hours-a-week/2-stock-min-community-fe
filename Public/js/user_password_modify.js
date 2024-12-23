@@ -72,6 +72,7 @@ document
       setTimeout(() => {
         modify_toast.classList.remove('show');
         setTimeout(() => container.removeChild(toast), 300);
+        window.location.href = '/posts/list';
       }, 3000);
       const response = await axios.patch(`${serverURL}/user`, patchList, {
         withCredentials: 'include',

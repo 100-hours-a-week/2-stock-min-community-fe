@@ -11,6 +11,16 @@ const backButton = document.getElementById('logo_back');
 backButton.addEventListener('click', () => {
   window.location.href = `/posts/${postID}`;
 });
+viewPostModify();
+async function viewPostModify() {
+  const postInfo = await axios.get(`${serverURL}/posts/content/${postID}`, {
+    withCredentials: 'include',
+  });
+  inputs.title.value = postInfo.data[0].title;
+  inputs.content.value = postInfo.data[0].content;
+  validateField('title', inputs.title.value);
+  validateField('content', inputs.content.value);
+}
 
 const validateRules = {
   title: (value) => {
@@ -66,6 +76,7 @@ submitButton.addEventListener('click', () => {
 modifyForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   const formData = new FormData();
+
   formData.append('postID', postID);
   formData.append('title', title.value);
   formData.append('content', content.value);
@@ -75,5 +86,5 @@ modifyForm.addEventListener('submit', async (event) => {
       'Content-Type': 'multipart/form-data',
     },
   });
-  window.location.href = `${serverURL}/posts/${postID}`;
+  window.location.href = `/posts/${postID}`;
 });

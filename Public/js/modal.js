@@ -4,7 +4,9 @@
 
 function createModal(title, content) {
   const modal = document.getElementById('modal_box');
-  modal.classList.remove('none');
+
+  modal.classList.add('active');
+  document.body.classList.add('body-lock');
   const modalContent = `
   <div class='modal'>
     <h2>${title}</h2>
@@ -22,10 +24,12 @@ function createModal(title, content) {
   const closeBtn = document.getElementById('close_btn');
   const checkBtn = document.getElementById('check_btn');
   closeBtn.addEventListener('click', () => {
-    modal.classList.add('none');
+    modal.classList.remove('active');
+    document.body.classList.remove('body-lock');
   });
   checkBtn.addEventListener('click', () => {
-    modal.classList.add('none');
+    modal.classList.remove('active');
+    document.body.classList.remove('body-lock');
   });
 }
 

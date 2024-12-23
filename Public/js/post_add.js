@@ -68,6 +68,7 @@ submitButton.addEventListener('click', () => {
     helper_text.classList.remove('hidden');
   }
 });
+
 document
   .getElementById('post_form')
   .addEventListener('submit', async (event) => {
@@ -76,7 +77,7 @@ document
 
     postData.append('postImage', inputs.image.files[0]);
     postData.append('title', inputs.title.value);
-    postData.append('content', inputs.content.value);
+    postData.append('content', content.value);
     postData.append('postDate', getCurrentTime());
 
     try {

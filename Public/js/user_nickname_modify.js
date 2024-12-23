@@ -3,10 +3,15 @@ const modify_toast = document.getElementById('modify_toast');
 const user_delete = document.getElementById('user_delete');
 const email = document.getElementById('email');
 const profile = document.getElementById('profile_image');
+const profileimg = document.getElementById('fileInput');
 
 const helper_nickname = document.getElementById('helper_text');
 const nickname = document.getElementById('nickname_update');
 const modify_form = document.getElementById('modify_form');
+
+function openFileDialog() {
+  profileimg.click();
+}
 
 async function getCurrentUser() {
   try {
@@ -17,13 +22,25 @@ async function getCurrentUser() {
     if (response.status === 200) {
       const userData = response.data;
       email.textContent = userData.email;
-      profile_image.src = `${imageURL}${userData.profile}`;
+      profile.src = `${imageURL}${userData.profile}`;
+      nickname.placeholder = userData.nickname;
     }
   } catch (error) {
     console.error('사용자 정보 불러올 수 없음 : ', error);
   }
 }
 getCurrentUser();
+
+profileimg.addEventListener('change', () => {
+  const file = profileimg.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      profile.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+});
 
 nickname.addEventListener('input', async (event) => {
   const response = await axios.post(`${serverURL}/check-duplicated`, {
@@ -60,17 +77,20 @@ nickname.addEventListener('input', async (event) => {
 
 modify_form.addEventListener('submit', async (event) => {
   event.preventDefault();
-  const nicknameValue = nickname.value;
-  const patchList = {
-    data: nicknameValue,
-    field: 'nickname',
-  };
+  const formData = new FormData();
+  formData.append('data', nickname.value);
+  formData.append('profile', profileimg.files[0]);
+  formData.append('field', 'nickname');
+
   try {
-    const response = await axios.patch(`${serverURL}/user`, patchList, {
+    const response = await axios.patch(`${serverURL}/user`, formData, {
       withCredentials: 'include',
     });
     setTimeout(() => modify_toast.classList.add('show'), 100);
-    setTimeout(() => modify_toast.classList.remove('show'), 3000);
+    setTimeout(() => {
+      modify_toast.classList.remove('show');
+      setTimeout((window.location.href = '/posts/list'), 100);
+    }, 3000);
   } catch (error) {
     console.error(error);
     alert('Error');

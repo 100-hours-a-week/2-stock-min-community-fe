@@ -15,9 +15,7 @@ async function getPostsComment() {
   const response = axios.get(`${serverURL}/comment/${postID}`);
   return response.data;
 }
-function authCheck(commentNum) {
-  document.querySelectorAll('.modify_delete').forEach((element) => {});
-}
+
 const commentSubmit = document.getElementById('comment_submit');
 const writeForm = document.getElementById('write_form');
 const comment = document.getElementById('comment');
@@ -29,8 +27,6 @@ const backButton = document.getElementById('logo_back');
 backButton.addEventListener('click', () => {
   window.location.href = `/posts/list`;
 });
-
-//게시글 수정&삭제
 
 function getCurrentTime() {
   const now = new Date();
@@ -191,7 +187,9 @@ async function viewDetail() {
           <div class="modify_delete" id="comment_md${comment.comment_id}">
           </div>
         </div>
-        <p id="comment_content${comment.comment_id}">${comment.content}</p>
+        <p class = "comment_content" id="comment_content${
+          comment.comment_id
+        }">${comment.content}</p>
     </div>`;
     commentContainer.innerHTML += commentView;
 
@@ -262,7 +260,7 @@ comment.addEventListener('input', () => {
 writeForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   const commentData = {
-    comment: comment.value,
+    comment: comment.value.replace(/\n/g, '<br>'),
     commentDate: getCurrentTime(),
     commentAutor: '',
   };

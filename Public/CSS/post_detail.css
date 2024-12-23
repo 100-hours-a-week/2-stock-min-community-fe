@@ -35,11 +35,17 @@
   align-items: center;
 }
 .post_content_box {
+  word-wrap: break-word;
+  word-break: break-word;
   width: 30rem;
 }
 .post_content_box img {
   width: 480px;
   height: 320px;
+}
+.post_content_box .content {
+  width: 480px;
+  white-space: pre-wrap;
 }
 .number_lcv_box {
   width: 30rem;
@@ -130,4 +136,10 @@
 }
 .modify_delete {
   margin: 2.5rem 0.7rem 0 0;
+}
+
+.comment_content {
+  width: 480px;
+  word-wrap: break-word;
+  word-break: break-word;
 }
