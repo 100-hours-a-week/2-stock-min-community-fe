@@ -4,7 +4,7 @@ const path = require('path');
 const port = 5500; // 프론트엔드 서버 포트
 
 // public 폴더를 정적 파일 경로로 설정
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, '/Public')));
 
 // function isAuthenticated(req, res, next) {
 //   if (!req.session.user) {
