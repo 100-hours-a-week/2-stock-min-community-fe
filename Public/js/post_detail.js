@@ -249,10 +249,10 @@ async function viewDetail() {
 
 comment.addEventListener('input', () => {
   if (!comment.value) {
-    commentSubmit.style.backgroundColor = '#aca0eb';
+    commentSubmit.style.backgroundColor = '#baccff';
     commentSubmit.setAttribute('type', 'button');
   } else {
-    commentSubmit.style.backgroundColor = '#7F6AEE';
+    commentSubmit.style.backgroundColor = '#6d94ff';
     commentSubmit.setAttribute('type', 'submit');
   }
 });

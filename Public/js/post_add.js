@@ -46,10 +46,10 @@ function validateField(field, value) {
     isValid[field] = false;
   }
   if (isValid.title && isValid.content) {
-    submitButton.style.backgroundColor = '#7F6AEE';
+    submitButton.style.backgroundColor = '#6d94ff';
     submitButton.setAttribute('type', 'submit');
   } else {
-    submitButton.style.backgroundColor = '#aca0eb';
+    submitButton.style.backgroundColor = '#baccff';
     submitButton.setAttribute('type', 'button');
   }
   helper_text.textContent = errorMessage;

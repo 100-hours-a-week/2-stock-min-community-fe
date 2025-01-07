@@ -61,7 +61,7 @@
   justify-content: space-between;
 }
 .likePushed {
-  background-color: #aca0eb !important;
+  background-color: #baccff !important;
 }
 .number_lcv li {
   display: flex;
@@ -82,7 +82,7 @@
 .write_comment {
   width: 30rem;
   border-radius: 1rem;
-  background-color: #ffffff;
+  background-color: #eceff1;
 }
 
 .comment_box textarea {

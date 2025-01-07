@@ -1,6 +1,7 @@
 const serverURL = 'http://localhost:3000/api/v1';
 const imageURL = 'http://localhost:3000';
 const logo = document.getElementById('logo');
+let menuVisible = false;
 
 // async function fetchUser() {
 //   try {
@@ -18,7 +19,7 @@ const logo_basic = `<div class="logo_container">
           
         </div>
         <div>
-          <p class="logo_title">아무말 대잔치</p>
+          <p class="logo_title">개미의 눈물은 푸른빛을 띈다</p>
         </div>
         <div>
           
@@ -29,7 +30,7 @@ const logo_no_profile = `<div class="logo_container">
           <p><</p>
         </div>
         <div>
-          <p class="logo_title">아무말 대잔치</p>
+          <p class="logo_title">개미의 눈물은 푸른빛을 띈다</p>
         </div>
         <div>
           
@@ -40,7 +41,7 @@ const logo_no_back = `<div class="logo_container">
         
       </div>
       <div>
-        <p class="logo_title">아무말 대잔치</p>
+        <p class="logo_title">개미의 눈물은 푸른빛을 띈다</p>
       </div>
       <div class="profile_box" id="profile_box">
         <img src="/images/profile_img.webp" alt="" id="profile_img"/>
@@ -54,7 +55,7 @@ const logo_all = `<div class="logo_container">
           <p><</p>
         </div>
       <div>
-        <p class="logo_title">아무말 대잔치</p>
+        <p class="logo_title">개미의 눈물은 푸른빛을 띈다</p>
       </div>
       <div class="profile_box" id="profile_box">
         <img src="/images/profile_img.webp" alt="" id="profile_img"/>
@@ -67,8 +68,14 @@ const url = window.location.pathname;
 
 const logo_default = ['/user/login'];
 const logo_has_back = ['/user/regist'];
-const logo_has_profile = ['/posts/list', '/user/nickname', '/user/password'];
-const logo_has_full = ['/posts/edit', '/posts/new', '/posts'];
+const logo_has_profile = ['/posts/list'];
+const logo_has_full = [
+  '/posts/edit',
+  '/posts/new',
+  '/posts',
+  '/user/nickname',
+  '/user/password',
+];
 
 if (logo_default.some((pattern) => url.includes(pattern))) {
   logo.innerHTML = logo_basic;
@@ -80,29 +87,33 @@ if (logo_default.some((pattern) => url.includes(pattern))) {
   logo.innerHTML = logo_all;
   // console.log(document.getElementById('profile_img').src);
 }
-document.getElementById('profile_img').addEventListener('mouseenter', () => {
-  document.getElementById('profile_menu').innerHTML = `<ul id="menu">
+document.getElementById('profile_img').addEventListener('click', () => {
+  if (!menuVisible) {
+    document.getElementById('profile_menu').innerHTML = `<ul id="menu">
                 <li id="nickname_modify">회원정보 수정</li>
                 <li id="password_modify">비밀번호 수정</li>
                 <li id="logout">로그아웃</li>
             </ul>`;
-  document.getElementById('nickname_modify').addEventListener('click', () => {
-    window.location.href = '/user/nickname';
-  });
-  document.getElementById('password_modify').addEventListener('click', () => {
-    window.location.href = '/user/password';
-  });
-  document.getElementById('logout').addEventListener('click', async () => {
-    try {
-      const response = await axios.get(`${serverURL}/logout`);
-      window.location.href = '/user/login';
-    } catch (error) {
-      console.error('Error : ', error);
-    }
-  });
-});
-document.getElementById('profile_box').addEventListener('mouseleave', () => {
-  document.getElementById('profile_menu').innerHTML = ``;
+
+    document.getElementById('nickname_modify').addEventListener('click', () => {
+      window.location.href = '/user/nickname';
+    });
+    document.getElementById('password_modify').addEventListener('click', () => {
+      window.location.href = '/user/password';
+    });
+    document.getElementById('logout').addEventListener('click', async () => {
+      try {
+        const response = await axios.get(`${serverURL}/logout`);
+        window.location.href = '/user/login';
+      } catch (error) {
+        console.error('Error : ', error);
+      }
+    });
+    menuVisible = true;
+  } else {
+    document.getElementById('profile_menu').innerHTML = ``;
+    menuVisible = false;
+  }
 });
 
 document.addEventListener('DOMContentLoaded', async () => {

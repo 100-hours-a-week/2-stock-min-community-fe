@@ -103,10 +103,10 @@ async function validateField(field, value, additionalValue = null) {
     isValid.nickname &&
     isValid.profile
   ) {
-    submit_button.style.backgroundColor = '#7F6AEE';
+    submit_button.style.backgroundColor = '#6d94ff';
     submit_button.setAttribute('type', 'submit');
   } else {
-    submit_button.style.backgroundColor = '#aca0eb';
+    submit_button.style.backgroundColor = '#baccff';
     submit_button.setAttribute('type', 'button');
   }
   helperTexts[field].textContent = errorMessage;

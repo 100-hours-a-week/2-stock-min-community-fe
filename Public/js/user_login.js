@@ -59,10 +59,10 @@ function validate() {
 
   if (isEmailValid && isPasswordValid) {
     submit_button.setAttribute('type', 'submit');
-    submit_button.style.backgroundColor = '#7F6AEE';
+    submit_button.style.backgroundColor = '#6d94ff';
   } else {
     submit_button.setAttribute('type', 'button');
-    submit_button.style.backgroundColor = '#aca0eb';
+    submit_button.style.backgroundColor = '#baccff';
   }
 }
 

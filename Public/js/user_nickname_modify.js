@@ -8,6 +8,11 @@ const profileimg = document.getElementById('fileInput');
 const helper_nickname = document.getElementById('helper_text');
 const nickname = document.getElementById('nickname_update');
 const modify_form = document.getElementById('modify_form');
+const backButton = document.getElementById('logo_back');
+
+backButton.addEventListener('click', () => {
+  window.location.href = `/posts/list`;
+});
 
 function openFileDialog() {
   profileimg.click();
@@ -52,26 +57,26 @@ nickname.addEventListener('input', async (event) => {
     helper_nickname.classList.remove('hidden');
     helper_nickname.textContent = '* 닉네임을 입력하세요.';
     modify_button.setAttribute('type', 'button');
-    modify_button.style.backgroundColor = '#aca0eb';
+    modify_button.style.backgroundColor = '#baccff';
   } else if (nickname_value.length > 10) {
     helper_nickname.classList.remove('hidden');
     helper_nickname.textContent = '* 닉네임은 10자 내로 적어주세요';
     modify_button.setAttribute('type', 'button');
-    modify_button.style.backgroundColor = '#aca0eb';
+    modify_button.style.backgroundColor = '#baccff';
   } else if (/\s/.test(nickname_value)) {
     helper_nickname.classList.remove('hidden');
     helper_nickname.textContent = '* 닉네임에 공백을 포함할 수 없습니다.';
     modify_button.setAttribute('type', 'button');
-    modify_button.style.backgroundColor = '#aca0eb';
+    modify_button.style.backgroundColor = '#baccff';
   } else if (response.data.duplicated) {
     helper_nickname.classList.remove('hidden');
     helper_nickname.textContent = '* 이미 사용중인 닉네임 입니다.';
     modify_button.setAttribute('type', 'button');
-    modify_button.style.backgroundColor = '#aca0eb';
+    modify_button.style.backgroundColor = '#baccff';
   } else {
     helper_nickname.classList.add('hidden');
     modify_button.setAttribute('type', 'submit');
-    modify_button.style.backgroundColor = '#7F6AEE';
+    modify_button.style.backgroundColor = '#6d94ff';
   }
 });
 
