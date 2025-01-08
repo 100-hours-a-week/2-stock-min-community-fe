@@ -23,8 +23,16 @@
   margin-bottom: 1rem;
   border-radius: 1rem;
 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   background-color: #eceff1;
+
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.user_post:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  background-color: #dad9d9;
 }
 .title_area {
   padding: 1rem;

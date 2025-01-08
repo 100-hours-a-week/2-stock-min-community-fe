@@ -38,6 +38,7 @@
   word-wrap: break-word;
   word-break: break-word;
   width: 30rem;
+  min-height: 200px;
 }
 .post_content_box img {
   width: 480px;
@@ -112,6 +113,7 @@
   width: 30rem;
 }
 .comment_ind {
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
 }
@@ -135,7 +137,7 @@
   margin: 1.3rem 3rem 0 0;
 }
 .modify_delete {
-  margin: 2.5rem 0.7rem 0 0;
+  margin: 0;
 }
 
 .comment_content {

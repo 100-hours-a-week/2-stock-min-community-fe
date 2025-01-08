@@ -69,9 +69,10 @@ async function viewDetail() {
   if (responseGetAuth.data.post.find((element) => element.post_id === postID)) {
     const postMD = document.getElementById('post_md_button');
     const mdButton = `
-    <button id="modify">수정</button>
+    <button class="normalButton" id="modify">수정</button>
             <button
               id="delete"
+              class="normalButton"
               onclick="createModal('게시글을 삭제하시겠습니까?','삭제한 내용은 복구할 수 없습니다')"
             >
               삭제
@@ -203,8 +204,8 @@ async function viewDetail() {
         `comment_md${comment.comment_id}`
       );
       commentMD.innerHTML = `
-      <button class="comment_modify" data-id=${comment.comment_id}>수정</button>
-      <button class="comment_delete" data-id=${comment.comment_id} onclick="createModal('댓글을 삭제하시겠습니까?','삭제한 내용은 복구할 수 없습니다')">삭제</button>
+      <button class="comment_modify normalButton" data-id=${comment.comment_id}>수정</button>
+      <button class="comment_delete normalButton" data-id=${comment.comment_id} onclick="createModal('댓글을 삭제하시겠습니까?','삭제한 내용은 복구할 수 없습니다')">삭제</button>
       `;
     }
   });
@@ -214,6 +215,7 @@ async function viewDetail() {
     button.addEventListener('click', (event) => {
       const commit = document.createElement('button');
       commit.innerHTML = '확인';
+      commit.classList = 'normalButton';
       event.target.replaceWith(commit);
 
       const content = document.getElementById(

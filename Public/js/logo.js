@@ -19,7 +19,7 @@ const logo_basic = `<div class="logo_container">
           
         </div>
         <div>
-          <p class="logo_title">개미의 눈물은 푸른빛을 띈다</p>
+          <p class="logo_title">개미의 눈물은 <strong>푸른빛</strong>을 띈다</p>
         </div>
         <div>
           
@@ -30,7 +30,7 @@ const logo_no_profile = `<div class="logo_container">
           <p><</p>
         </div>
         <div>
-          <p class="logo_title">개미의 눈물은 푸른빛을 띈다</p>
+          <p class="logo_title">개미의 눈물은 <strong>푸른빛</strong>을 띈다</p>
         </div>
         <div>
           
@@ -41,7 +41,7 @@ const logo_no_back = `<div class="logo_container">
         
       </div>
       <div>
-        <p class="logo_title">개미의 눈물은 푸른빛을 띈다</p>
+        <p class="logo_title">개미의 눈물은 <strong>푸른빛</strong>을 띈다</p>
       </div>
       <div class="profile_box" id="profile_box">
         <img src="/images/profile_img.webp" alt="" id="profile_img"/>
@@ -55,7 +55,7 @@ const logo_all = `<div class="logo_container">
           <p><</p>
         </div>
       <div>
-        <p class="logo_title">개미의 눈물은 푸른빛을 띈다</p>
+        <p class="logo_title">개미의 눈물은 <strong>푸른빛</strong>을 띈다</p>
       </div>
       <div class="profile_box" id="profile_box">
         <img src="/images/profile_img.webp" alt="" id="profile_img"/>

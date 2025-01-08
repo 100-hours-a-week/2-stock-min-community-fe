@@ -12,58 +12,60 @@
     <header id="logo"></header>
 
     <!-- user_info -->
-    <section id="post_box">
-      <div class="user_info">
-        <div class="title">
-          <h2 id="title">제목 1</h2>
-        </div>
-        <article class="post_info">
-          <div class="date">
-            <img src="" class="profile_img" id="profile_img_post" />
-            <h4 id="autor">더미 작성자 1</h4>
-            <p id="post_date">2021-01-01 00:00:00</p>
+    <div class="post">
+      <section id="post_box" class="user_info_container">
+        <div class="user_info">
+          <div class="title">
+            <h2 id="title">제목 1</h2>
           </div>
-          <div class="modify_delete" id="post_md_button"></div>
+          <article class="post_info">
+            <div class="date">
+              <img src="" class="profile_img" id="profile_img_post" />
+              <h4 id="autor">더미 작성자 1</h4>
+              <p id="post_date">2021-01-01 00:00:00</p>
+            </div>
+            <div class="modify_delete" id="post_md_button"></div>
+          </article>
+        </div>
+      </section>
+
+      <!-- post_content -->
+      <section id="post_content">
+        <article class="post_content_box" id="content_box">
+          <p class="content" id="content">content</p>
         </article>
-      </div>
-    </section>
+        <article class="number_lcv_box">
+          <!-- lcv = like_commnet_views -->
+          <ul class="number_lcv">
+            <li id="like_container" class="">
+              <p id="like_count">123</p>
+              <p>좋아요 수</p>
+            </li>
+            <li>
+              <p id="view_count">123</p>
+              <p>조회수</p>
+            </li>
+            <li>
+              <p id="comment_count">123</p>
+              <p>댓글</p>
+            </li>
+          </ul>
+        </article>
+      </section>
 
-    <!-- post_content -->
-    <section id="post_content">
-      <article class="post_content_box" id="content_box">
-        <p class="content" id="content">content</p>
-      </article>
-      <article class="number_lcv_box">
-        <!-- lcv = like_commnet_views -->
-        <ul class="number_lcv">
-          <li id="like_container" class="">
-            <p id="like_count">123</p>
-            <p>좋아요 수</p>
-          </li>
-          <li>
-            <p id="view_count">123</p>
-            <p>조회수</p>
-          </li>
-          <li>
-            <p id="comment_count">123</p>
-            <p>댓글</p>
-          </li>
-        </ul>
-      </article>
-    </section>
-
-    <!-- post_comment -->
-    <section id="post_comment">
-      <form class="write_comment" id="write_form">
-        <div class="comment_box">
-          <textarea name="" id="comment"></textarea>
-        </div>
-        <div class="write_button_box">
-          <button type="button" id="comment_submit">댓글 등록</button>
-        </div>
-      </form>
-      <article class="comment_list" id="comment_box"></article>
-    </section>
+      <!-- post_comment -->
+      <section id="post_comment">
+        <form class="write_comment" id="write_form">
+          <div class="comment_box">
+            <textarea name="" id="comment"></textarea>
+          </div>
+          <div class="write_button_box">
+            <button type="button" id="comment_submit">댓글 등록</button>
+          </div>
+        </form>
+        <article class="comment_list" id="comment_box"></article>
+      </section>
+    </div>
     <div class="modal_box" id="modal_box"></div>
     <script src="/js/modal.js"></script>
     <script src="/js/logo.js"></script>
