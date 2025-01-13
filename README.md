@@ -25,13 +25,12 @@
 <br />
 
 ### 화면 구성
-|화면 명|
+|로그인|
 |:---:|
 |<img width="450" alt="login" src="https://github.com/user-attachments/assets/340dfbf2-6861-43de-846e-34c518dfe21e" />|
-|화면에 대한 설명을 입력합니다.|
+|로그인 화면입니다.|
 
-
-|화면 명|
+|회원가입|
 |:---:|
 |<img src="https://user-images.githubusercontent.com/80824750/208456234-fb5fe434-aa65-4d7a-b955-89098d5bbe0b.gif" width="450"/>|
 |화면에 대한 설명을 입력합니다.|
