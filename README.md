@@ -5,7 +5,7 @@
 
 
 [<img src="https://img.shields.io/badge/-readme.md-important?style=flat&logo=google-chrome&logoColor=white" />]() [<img src="https://img.shields.io/badge/-tech blog-blue?style=flat&logo=google-chrome&logoColor=white" />]() [<img src="https://img.shields.io/badge/release-v0.0.0-ㅎㄱㄷ두?style=flat&logo=google-chrome&logoColor=white" />]() 
-<br/> [<img src="https://img.shields.io/badge/프로젝트 기간-2022.12.10~2022.12.19-fab2ac?style=flat&logo=&logoColor=white" />]()
+<br/> [<img src="https://img.shields.io/badge/프로젝트 기간-2024.10.30~2025.01.14-fab2ac?style=flat&logo=&logoColor=white" />]()
 
 </div> 
 
