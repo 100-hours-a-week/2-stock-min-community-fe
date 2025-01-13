@@ -10,11 +10,10 @@
 </div> 
 
 
-- 프로젝트 소개
-- 프로젝트 화면 구성
-- 사용한 기술 스택
-- 기술적 이슈와 해결 과정
-- 프로젝트 팀원
+#- 프로젝트 소개
+#- 프로젝트 화면 구성
+#- 사용한 기술 스택
+#- 기술적 이슈와 해결 과정
 
 필요한 기술 스택에 대한 logo는 [skills 폴더](/skills/)에서 다운로드 받을 수 있습니다.
 
@@ -70,17 +69,9 @@
 <br />
 
 ## 🤔 기술적 이슈와 해결 과정
-- CORS 이슈
-    - [Axios message: 'Network Error'(CORS 오류)](https://leeseong010.tistory.com/117)
-- api 호출 시 중복되는 헤더 작업 간소화하기
-    - [axios interceptor 적용하기](https://leeseong010.tistory.com/133)
-- axios 요청하기
-    - [axios delete 요청 시 body에 data 넣는 방법](https://leeseong010.tistory.com/111)
+
 
 <br />
 
 ## 💁‍♂️ 프로젝트 팀원
-|Backend|Frontend|
-|:---:|:---:|
-| ![](https://github.com/yewon-Noh.png?size=120) | ![](https://github.com/SeongHo-C.png?size=120) |
-|[노예원](https://github.com/yewon-Noh)|[이성호](https://github.com/SeongHo-C)|
+
