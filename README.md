@@ -27,7 +27,7 @@
 ### 화면 구성
 | 로그인 | 회원가입 |
 | :---: | :---: |
-|<img width="450" alt="login" src="https://github.com/user-attachments/assets/340dfbf2-6861-43de-846e-34c518dfe21e" /> | <img width="1440" alt="register" src="https://github.com/user-attachments/assets/ddcb34e0-396d-4c49-928a-9fb647dacec3" /> |
+|<img width="450" alt="login" src="https://github.com/user-attachments/assets/340dfbf2-6861-43de-846e-34c518dfe21e" /> | <img width="450" alt="register" src="https://github.com/user-attachments/assets/ddcb34e0-396d-4c49-928a-9fb647dacec3" /> |
 | 로그인 화면입니다. | 회원가입 화면입니다. |
 
 
