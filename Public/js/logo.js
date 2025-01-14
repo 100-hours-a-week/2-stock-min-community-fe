@@ -3,17 +3,6 @@ const imageURL = 'http://localhost:3000';
 const logo = document.getElementById('logo');
 let menuVisible = false;
 
-// async function fetchUser() {
-//   try {
-//     const response = await axios.get(`${serverURL}user`, {
-//       credentials: 'include',
-//     });
-//     return response;
-//   } catch (error) {
-//     console.error('세션 정보 가져오기 실패 : ', error);
-//   }
-// }
-
 const logo_basic = `<div class="logo_container">
         <div>
           
